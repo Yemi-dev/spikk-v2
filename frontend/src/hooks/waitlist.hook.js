@@ -2,31 +2,31 @@ import { useEffect } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axiosInstance from "@/constants/url";
 
-export function useGetWaitlist({ page }) {
+export function useGetWaitlist({ page = 1 }) {
   const queryClient = useQueryClient();
 
-  const query = useQuery(
-    ["dashboard", page],
-    () =>
-      axiosInstance.get(`/waitlist`, {
-        params: {
-          page,
-        },
+  const query = useQuery({
+    queryKey: ["dashboard", page],
+    queryFn: () =>
+      axiosInstance.get("/waitlist", {
+        params: { page },
       }),
-    {
+    options: {
       keepPreviousData: true,
       refetchOnWindowFocus: false,
       staleTime: Infinity,
       cacheTime: 1000 * 60 * 20,
-    }
-  );
+    },
+  });
 
   useEffect(() => {
-    queryClient.prefetchQuery(["waitlist", page], () =>
-      axiosInstance.get(`/waitlist`, {
-        params: { page },
-      })
-    );
+    queryClient.prefetchQuery({
+      queryKey: ["waitlist", page],
+      queryFn: () =>
+        axiosInstance.get("/waitlist", {
+          params: { page },
+        }),
+    });
   }, [queryClient, page]);
 
   return query;

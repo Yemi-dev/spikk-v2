@@ -9,7 +9,7 @@ import { features, success, survey } from "@/constants/data";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { countries } from "@/constants/countries.data";
-import { useCreateWaitlist } from "@/hooks/waitlist.hook";
+import { useCreateWaitlist, useGetWaitlist } from "@/hooks/waitlist.hook";
 import { toast } from "react-toastify";
 
 const validationSchema = Yup.object().shape({
@@ -23,6 +23,8 @@ const validationSchema = Yup.object().shape({
 
 const WaitlistForm = ({ onClose }) => {
   const { mutate, isLoading } = useCreateWaitlist();
+  const { data = [], isLoading: dataLoading } = useGetWaitlist({ page: 1 });
+  console.log("Waitlist data:", data);
   const [isSuccess, setSuccess] = useState(false);
   const formik = useFormik({
     initialValues: {
