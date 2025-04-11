@@ -15,7 +15,7 @@
     "build": "yarn workspace frontend build && yarn workspace backend build",
     "dev": "concurrently \"yarn workspace backend dev\" \"yarn workspace frontend dev\""
   },
-  "devDependencies": {
+  "dependencies": {
     "concurrently": "^9.1.2"
   }
 }
