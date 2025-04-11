@@ -1,19 +1,7 @@
-import mongoose, { Document, Schema } from "mongoose";
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-export interface IWaitlist extends Document {
-  email: string;
-  feature: string;
-  alternatives: string;
-  success: string;
-  otherFinancialApp?: string;
-  otherSuccessMetric?: string;
-  country: string;
-  price: number;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-const WaitlistSchema: Schema = new Schema(
+const WaitlistSchema = new Schema(
   {
     email: {
       type: String,
@@ -44,9 +32,9 @@ const WaitlistSchema: Schema = new Schema(
       default: "",
     },
     price: {
-        type: Number,
-        required: true,
-        default: 0,
+      type: Number,
+      required: true,
+      default: 0,
     },
     country: {
       type: String,
@@ -64,4 +52,4 @@ const WaitlistSchema: Schema = new Schema(
   }
 );
 
-export default mongoose.model<IWaitlist>("Waitlist", WaitlistSchema);
+module.exports = mongoose.model("Waitlist", WaitlistSchema);

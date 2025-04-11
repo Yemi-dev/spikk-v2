@@ -1,14 +1,7 @@
-// src/middlewares/errorHandler.ts
-import { Request, Response, NextFunction } from 'express';
-import httpStatus from 'http-status';
-import { IError } from '../types/error.types';
+// src/middlewares/errorHandler.js
+const httpStatus = require('http-status');
 
-const errorHandler = (
-  err: IError,
-  req: Request,
-  res: Response,
-  next: NextFunction
-): void => {  // Changed return type to void
+const errorHandler = (err, req, res, next) => {
   // Handle intentional errors
   if (err.intentional) {
     res.status(err.status || httpStatus.BAD_REQUEST).json({
@@ -16,7 +9,7 @@ const errorHandler = (
       message: err.message || 'Operation failed',
       error: process.env.NODE_ENV === 'development' ? err.stack : undefined,
     });
-    return;  // Explicit return to stop execution
+    return;
   }
 
   // Log the error
@@ -48,4 +41,4 @@ const errorHandler = (
   });
 };
 
-export default errorHandler;
+module.exports = errorHandler;

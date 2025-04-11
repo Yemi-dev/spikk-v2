@@ -1,25 +1,25 @@
-import express, { Application, Request, Response, NextFunction } from "express";
-import dotenv from "dotenv";
-import cors from "cors";
-import helmet from "helmet";
-import morgan from "morgan";
-import httpStatus from "http-status";
-import http from "http";
-import router from "./routes/index.routes";
-import { errorHandler } from "./middlewares";
-import connectDB from "./DB/connection"; 
+const express = require("express");
+const dotenv = require("dotenv");
+const cors = require("cors");
+const helmet = require("helmet");
+const morgan = require("morgan");
+const httpStatus = require("http-status");
+const http = require("http");
+const router = require("./routes/index.routes");
+const { errorHandler } = require("./middlewares");
+const connectDB = require("./DB/connection");
 
 dotenv.config();
 
 // Initialize Express
-const app: Application = express();
+const app = express();
 const PORT = process.env.PORT || 3000;
 const server = http.createServer(app);
 
 // Connect to MongoDB FIRST
 (async () => {
   try {
-    await connectDB(); // ⚠️ 
+    await connectDB(); // ⚠️
     console.log("✅ MongoDB Connected");
 
     // Middlewares
@@ -41,7 +41,7 @@ const server = http.createServer(app);
     app.use(express.urlencoded({ extended: true }));
 
     // Routes
-    app.get("/", (req: Request, res: Response) => {
+    app.get("/", (req, res) => {
       res.status(httpStatus.OK).json({
         success: true,
         message: "Hello World, Welcome to Finverse API",
@@ -51,8 +51,8 @@ const server = http.createServer(app);
     app.use("/api", router);
 
     // 404 Handler
-    app.use((req: Request, res: Response, next: NextFunction) => {
-      const error = new Error(`Not Found - ${req.originalUrl}`) as any;
+    app.use((req, res, next) => {
+      const error = new Error(`Not Found - ${req.originalUrl}`);
       error.status = httpStatus.NOT_FOUND;
       next(error);
     });
@@ -63,13 +63,12 @@ const server = http.createServer(app);
     // Start the server ONLY after DB connects
     server.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);
-      console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
+      console.log(`Environment: ${process.env.NODE_ENV || "development"}`);
     });
-
   } catch (err) {
     console.error("❌ Failed to connect to MongoDB", err);
     process.exit(1); // Crash the app if DB connection fails
   }
 })();
 
-export default server;
+module.exports = server;

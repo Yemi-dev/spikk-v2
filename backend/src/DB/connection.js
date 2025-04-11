@@ -5,7 +5,8 @@ dotenv.config();
 const connectDB = async () => {
   const Db = process.env.NODE_ENV === "production" ? process.env.REMOTE_DATABASE : process.env.LOCAL_DATABASE;
 
-//   console.log(`Connecting to DB: ${Db?.split("@")[1] || Db}`); // Debug
+  // Uncomment for debugging:
+  // console.log(`Connecting to DB: ${Db?.split("@")[1] || Db}`);
 
   try {
     await mongoose.connect(Db, {
@@ -15,8 +16,8 @@ const connectDB = async () => {
     console.log("✅ MongoDB Connected");
   } catch (err) {
     console.error("❌ MongoDB Connection Error:", err);
-    process.exit(1); // Crash app if DB fails
+    process.exit(1); 
   }
 };
 
-export default connectDB; // ES Modules export
+module.exports = connectDB; // Changed to CommonJS export
