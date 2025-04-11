@@ -64,6 +64,4 @@ const WaitlistSchema: Schema = new Schema(
   }
 );
 
-WaitlistSchema.index({ email: 1 }, { unique: true });
-
 export default mongoose.model<IWaitlist>("Waitlist", WaitlistSchema);
