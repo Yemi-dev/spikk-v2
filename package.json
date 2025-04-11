@@ -1,0 +1,21 @@
+{
+  "name": "finverse",
+  "private": true,
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/Yemi-dev/finverse.git",
+  "author": "Yemi Akinyemi <akinyemitiana77@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "concurrently \"yarn workspace backend start\" \"yarn workspace frontend dev\"",
+    "build": "yarn workspace frontend build && yarn workspace backend build",
+    "dev": "concurrently \"yarn workspace backend dev\" \"yarn workspace frontend dev\""
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
