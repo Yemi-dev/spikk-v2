@@ -11,9 +11,10 @@
   "author": "Yemi Akinyemi <akinyemitiana77@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "concurrently \"yarn workspace backend start\" \"yarn workspace frontend dev\"",
-    "build": "yarn workspace frontend build && yarn workspace backend build",
-    "dev": "concurrently \"yarn workspace backend dev\" \"yarn workspace frontend dev\""
+    "start": "concurrently -n BACKEND,FRONTEND -c bgBlue.bold,bgGreen.bold \"yarn workspace backend start\" \"yarn workspace frontend dev\"",
+    "build": "yarn workspace backend build && yarn workspace frontend build",
+    "dev": "concurrently \"yarn workspace backend dev\" \"yarn workspace frontend dev\"",
+    "render-build": "yarn install && yarn build"
   },
   "dependencies": {
     "concurrently": "^9.1.2"
