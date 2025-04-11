@@ -12,7 +12,7 @@
   "license": "MIT",
   "scripts": {
     "start": "concurrently -n BACKEND,FRONTEND -c bgBlue.bold,bgGreen.bold \"yarn workspace backend start\" \"yarn workspace frontend dev\"",
-    "build": "yarn workspace backend add -D @types/node && yarn workspace backend build && yarn workspace frontend build",
+    "build": "yarn workspace backend build && yarn workspace frontend build",
     "dev": "concurrently \"yarn workspace backend dev\" \"yarn workspace frontend dev\"",
     "render-build": "yarn install && yarn build"
   },
