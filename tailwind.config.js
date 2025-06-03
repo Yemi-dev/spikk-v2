@@ -1,0 +1,95 @@
+const config = {
+  content: [
+    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/pages/*.{js,ts,jsx,tsx,mdx}",
+    "./src/pages/*.{js,ts,jsx,tsx,mdx}",
+    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/ui/**/*.{js,ts,jsx,tsx,mdx}",
+  ],
+  theme: {
+    extend: {
+      fontFamily: {
+        gilroy: ["var(--font-gilroy)"],
+        comfortaa: ["var(--font-comfortaa)"],
+      },
+      animation: {
+        scaleUp: "scaleUp 0.1s ease-in-out",
+      },
+      keyframes: {
+        scaleUp: {
+          "0%": { transform: "scale(0)" },
+          "100%": { transform: "scale(1)" },
+        },
+      },
+    },
+    screens: {
+      xs: {
+        max: "480px",
+      },
+      sm: {
+        max: "768.98px",
+      },
+      xlg: {
+        max: "976px",
+      },
+      xmd: {
+        max: "1250px",
+      },
+      md: "768.99px",
+      lg: "976px",
+      l: "1250px",
+      xl: "1440px",
+    },
+    colors: {
+      green: "#009245",
+      red: "#EF4325",
+      textBlack: "#222222",
+      bgDark: "#212121",
+      bgPurple: "#290849",
+      bgPurple100: "#55185D",
+      bgPurpleLight: "#F9F8FA",
+      textOrange: "#EF4325",
+      textYellow: "#FFD524",
+      textDarker: "#333333",
+      purpleStroke: "#CFC0DE",
+      textDark: "#290849",
+      white: "#ffffff",
+      black: "#000000",
+      error: "#df1c36",
+      natural700: "#6B6B6B",
+      natural200: "#E7E7E7",
+      natural300: "#D1D1D1",
+      natural400: "#767676",
+      black900: "#121212",
+      yellow700: "#FCC122",
+      textGray: "#434343",
+      blue100: "#3B82F6",
+      gray200: "#E9E9E9",
+      gray400: "#9D9D9D",
+      gray300: "#C4C4C4",
+      black: "#000000",
+      black600: "#555555",
+      spikkOrange: "#F87E07",
+      yellow100: "#FFF6DF",
+      pink100: "#FFF2F3",
+      gray800: "#262626",
+      gray500: "#D9D9D9",
+      gray100: "#E4E7E9",
+      gray600: "#5F6C72",
+      gray700: "#475156",
+      gray900: "#191C1F",
+      soft100: "#F5F5F5",
+      soft200: "#E4E7E9",
+      soft300: "#2D2D2D",
+      blue200: "#2DA5F3",
+    },
+    extend: {
+      backgroundImage: {
+        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
+        "gradient-conic": "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      },
+    },
+  },
+  plugins: [],
+};
+export default config;

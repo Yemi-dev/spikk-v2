@@ -1,22 +1,37 @@
 {
-  "name": "finverse",
+  "name": "frontend",
+  "version": "0.1.0",
   "private": true,
-  "workspaces": [
-    "backend",
-    "frontend"
-  ],
-  "version": "1.0.0",
-  "main": "index.js",
-  "repository": "https://github.com/Yemi-dev/finverse.git",
-  "author": "Yemi Akinyemi <akinyemitiana77@gmail.com>",
-  "license": "MIT",
   "scripts": {
-    "start": "concurrently -n BACKEND,FRONTEND -c bgBlue.bold,bgGreen.bold \"yarn workspace backend start\" \"yarn workspace frontend dev\"",
-    "build": "yarn workspace backend build && yarn workspace frontend build",
-    "dev": "concurrently \"yarn workspace backend dev\" \"yarn workspace frontend dev\"",
-    "render-build": "yarn install && yarn build"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
-    "concurrently": "7.6.0"
+    "@tanstack/react-query": "^5.72.2",
+    "@tanstack/react-query-devtools": "^5.72.2",
+    "axios": "^1.8.4",
+    "formik": "^2.4.6",
+    "next": "15.2.5",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-icons": "^5.5.0",
+    "react-responsive": "^10.0.1",
+    "react-toastify": "^11.0.5",
+    "yup": "^1.6.1"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "autoprefixer": "^10.4.21",
+    "eslint": "^9",
+    "eslint-config-next": "15.2.5",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
   }
 }
