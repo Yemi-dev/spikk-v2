@@ -114,18 +114,20 @@ const ProductGrid = ({
               <button
                 key={product.id}
                 onClick={() => setViewProduct(product)}
-                className='flex flex-col items-center bg-white border border-soft200 rounded-xl p-4 shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer min-h-[220px] hover:opacity-60'>
+                className='flex flex-col items-start justify-end bg-white border border-soft200 rounded-xl p-4 shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer min-h-[220px] hover:opacity-60'>
                 <Image
-                  src={product.image}
+                  src={product.image.trimEnd()}
                   alt={product.name}
                   width={150}
                   height={140}
                   className='mb-2 object-contain h-[100px] w-full'
                 />
-                <span className='text-xs md:text-sm text-gray900 text-center leading-tight mb-1 line-clamp-2'>
+                <span className='text-xs md:text-sm text-gray900 text-left leading-tight mb-1 line-clamp-2'>
                   {product.name}
                 </span>
-                <span className='text-blue100 text-sm font-semibold mt-1'>{formatPrice(Number(product.price))}</span>
+                <span className='text-blue100 text-sm font-semibold mt-1 text-left'>
+                  {formatPrice(Number(product.price))}
+                </span>
               </button>
             ))}
           </div>

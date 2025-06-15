@@ -79,7 +79,13 @@ const Hero = ({ isHome }: { isHome?: boolean }) => {
                 <h1 className='hero-title text-4xl lg:text-5xl xl:text-[84px] font-semibold leading-tight lg:leading-[1.2] flex items-center justify-center lg:justify-start gap-2 max-w-[600px] mx-auto lg:mx-0'>
                   {data.text2}{" "}
                   <span className='hero-title-bold'>
-                    <Image src='/images/svg/hero4.svg' alt='hero4' width={136} height={40} />
+                    <Image
+                      src='/images/svg/hero4.svg'
+                      alt='hero4'
+                      width={136}
+                      height={40}
+                      className='w-[136px] h-[40px] xs:w-[100px] xs:h-[30px]'
+                    />
                   </span>{" "}
                 </h1>
                 <h1 className='hero-title text-4xl lg:text-5xl xl:text-[84px] font-semibold leading-tight lg:leading-[1.2] max-w-[600px] mx-auto lg:mx-0'>
@@ -91,13 +97,13 @@ const Hero = ({ isHome }: { isHome?: boolean }) => {
                 </p>
                 <div className='flex flex-col sm:flex-col-reverse lg:flex-row gap-4 items-center justify-center lg:justify-start mt-6'>
                   <CustomButton
-                    onClick={() => handleNavigate("/auth/login")}
+                    onClick={() => handleNavigate(!isHome ? "/home" : "/vendors#register")}
                     bgColor={colors.yellow700}
                     className='w-[300px] font-semibold whitespace-nowrap'>
                     {isHome ? "START YOUR ERRAND NOW" : "REQUEST ERRAND"} <FaAngleRight />
                   </CustomButton>
                   <CustomButton
-                    onClick={() => handleNavigate("/cashout")}
+                    onClick={() => handleNavigate("/vendors#register")}
                     bgColor={"transparent"}
                     color={colors.blue100}
                     borderRadius={`rounded-[40px]`}

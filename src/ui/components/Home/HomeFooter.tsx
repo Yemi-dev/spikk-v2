@@ -8,12 +8,12 @@ const socialLinks = [
     icon: "/images/svg/Whatsapp.svg",
   },
   {
-    href: "https://instagram.com/",
+    href: "https://www.instagram.com/spikk.co/",
     label: "Instagram",
     icon: "/images/svg/Instagram.svg",
   },
   {
-    href: "https://linkedin.com/",
+    href: "https://www.linkedin.com/company/spikk/",
     label: "LinkedIn",
     icon: "/images/svg/Linkedin.svg",
   },
@@ -31,10 +31,10 @@ const HomeFooter = () => {
         {/* QuickLinks */}
         <div className='flex-1 flex flex-col items-center gap-2 min-w-[180px]'>
           <h4 className='text-lg font-medium mb-2 text-white'>QuickLinks</h4>
-          <Link href='/' className='text-gray300 hover:text-white text-base mb-1 transition'>
+          <Link href='/home' className='text-gray300 hover:text-white text-base mb-1 transition'>
             Home
           </Link>
-          <Link href='/marketplace' className='text-gray300 hover:text-white text-base mb-1 transition'>
+          <Link href='/home' className='text-gray300 hover:text-white text-base mb-1 transition'>
             Marketplace
           </Link>
           <Link href='/vendors' className='text-gray300 hover:text-white text-base transition'>
@@ -72,10 +72,10 @@ const HomeFooter = () => {
 
       {/* Bottom row */}
       <div className='max-w-[1300px] mx-auto flex flex-col md:flex-row justify-between items-center gap-2 text-sm text-gray-400'>
-        <Link href='/privacy' className='hover:text-white transition mb-2 md:mb-0'>
+        <Link href='/' className='hover:text-white transition mb-2 md:mb-0'>
           Privacy Policy
         </Link>
-        <span>Copyright © {new Date().getFullYear()} Buimas</span>
+        <span className="text-soft400">Copyright © {new Date().getFullYear()} Buimas</span>
       </div>
     </footer>
   );

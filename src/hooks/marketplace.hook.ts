@@ -23,12 +23,22 @@ export function useGetAllCategories() {
 
   return query;
 }
-export function useGetAllMarketplaceProducts({ page, limit, search = "" }: { page: number; limit: number; search?: string }) {
+export function useGetAllMarketplaceProducts({
+  page,
+  pageSize,
+  search = "",
+  name = "",
+}: {
+  page: number;
+  pageSize: number;
+  search?: string;
+  name?: string;
+}) {
   const queryClient = useQueryClient();
 
   const query = useQuery({
-    queryKey: ["marketplace-products", page, limit, search],
-    queryFn: () => axiosInstance.get(`/marketplace?page=${page}&limit=${limit}&search=${search}`),
+    queryKey: ["marketplace-products", page, pageSize, search, name],
+    queryFn: () => axiosInstance.get(`/marketplace?page=${page}&pageSize=${pageSize}&search=${search}&name=${name}`),
     placeholderData: (previousData) => previousData,
     refetchOnWindowFocus: false,
     staleTime: Infinity,
@@ -37,10 +47,10 @@ export function useGetAllMarketplaceProducts({ page, limit, search = "" }: { pag
 
   useEffect(() => {
     queryClient.prefetchQuery({
-      queryKey: ["marketplace-products", page, limit, search],
-      queryFn: () => axiosInstance.get(`/marketplace?page=${page}&limit=${limit}&search=${search}`),
+      queryKey: ["marketplace-products", page, pageSize, search, name],
+      queryFn: () => axiosInstance.get(`/marketplace?page=${page}&pageSize=${pageSize}&search=${search}&name=${name}`),
     });
-  }, [queryClient, page, limit, search]);
+  }, [queryClient, page, pageSize, search, name]);
 
   return query;
 }
@@ -88,12 +98,16 @@ export function useGetAllPopularProducts() {
   return query;
 }
 
-export function useGetCategoryByRef(ref: string, { page, limit, search = "" }: { page: number; limit: number; search?: string }) {
+export function useGetCategoryByRef(
+  ref: string,
+  { page, pageSize, search = "" }: { page: number; pageSize: number; search?: string }
+) {
   const queryClient = useQueryClient();
 
   const query = useQuery({
-    queryKey: ["product-category", ref, page, limit, search],
-    queryFn: () => axiosInstance.get(`/marketplace/product-by-category/${ref}?page=${page}&limit=${limit}&search=${search}`),
+    queryKey: ["product-category", ref, page, pageSize, search],
+    queryFn: () =>
+      axiosInstance.get(`/marketplace/product-by-category/${ref}?page=${page}&pageSize=${pageSize}&search=${search}`),
     placeholderData: (previousData) => previousData,
     refetchOnWindowFocus: false,
     staleTime: Infinity,
@@ -102,10 +116,32 @@ export function useGetCategoryByRef(ref: string, { page, limit, search = "" }: {
 
   useEffect(() => {
     queryClient.prefetchQuery({
-      queryKey: ["product-category", ref, page, limit, search],
-      queryFn: () => axiosInstance.get(`/marketplace/product-by-category/${ref}?page=${page}&limit=${limit}&search=${search}`),
+      queryKey: ["product-category", ref, page, pageSize, search],
+      queryFn: () =>
+        axiosInstance.get(`/marketplace/product-by-category/${ref}?page=${page}&pageSize=${pageSize}&search=${search}`),
     });
-  }, [queryClient, ref, page, limit, search]);
+  }, [queryClient, ref, page, pageSize, search]);
+  return query;
+}
+
+export function useGetCategoryByID(id: string) {
+  const queryClient = useQueryClient();
+
+  const query = useQuery({
+    queryKey: ["product-category", id],
+    queryFn: () => axiosInstance.get(`/product-category/${id}`),
+    placeholderData: (previousData) => previousData,
+    refetchOnWindowFocus: false,
+    staleTime: Infinity,
+    gcTime: 1000 * 60 * 20,
+  });
+
+  useEffect(() => {
+    queryClient.prefetchQuery({
+      queryKey: ["product-category", id],
+      queryFn: () => axiosInstance.get(`/product-category/${id}`),
+    });
+  }, [queryClient, id]);
   return query;
 }
 

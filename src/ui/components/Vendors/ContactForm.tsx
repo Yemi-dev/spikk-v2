@@ -9,8 +9,6 @@ import CustomTextArea from "@/ui/atoms/inputs/CustomTextArea";
 import { useContactUs } from "@/hooks/contact.hook";
 import { toast } from "react-toastify";
 
-
-
 interface ContactFormValues {
   email: string;
   name: string;
@@ -46,11 +44,11 @@ const ContactForm = () => {
   });
 
   return (
-    <div className='w-full max-w-6xl bg-[#323232] rounded-2xl px-6 py-12 mt-[100px]'>
+    <div id='register' className='w-full max-w-6xl bg-[#323232] rounded-2xl px-6 py-12 mt-[100px]'>
       <h2 className='text-2xl md:text-3xl font-bold text-white text-center mb-8 pb-4'>
         CONTACT US FOR BUSINESS PARTNERSHIPS
       </h2>
-      <div className='flex flex-col lg:flex-row gap-8 justify-center items-start'>
+      <div className='flex flex-col-reverse lg:flex-row gap-8 justify-center lg:items-start items-center'>
         <div className='flex-1 w-full mx-auto'>
           <form onSubmit={formik.handleSubmit} className='flex flex-col gap-4 w-full max-w-xl mx-auto'>
             <CustomTextInput
@@ -104,12 +102,12 @@ const ContactForm = () => {
           </form>
         </div>
         <div className='flex-1'>
-          <div className='w-full h-full md:h-full lg:h-full rounded-xl overflow-hidden'>
+          <div className='w-[400px] h-[270px] md:w-[500px] md:h-[270px] lg:w-[500px] lg:h-[270px] rounded-xl overflow-hidden'>
             <Image
               src='/images/png/ContactRight.png'
               alt='Business partnership'
               width={500}
-              height={300}
+              height={270}
               className='object-cover object-top w-full h-full rounded-xl'
             />
           </div>

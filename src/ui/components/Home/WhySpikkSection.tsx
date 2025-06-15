@@ -31,32 +31,28 @@ const features = [
 
 const testimonials = [
   {
-    name: "JOHN SMITH",
-    text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+    name: "AYOMIDE SAMUEL",
+    text: "I've been using Spikk for a few months now, and I've been really impressed with the service. The app is easy to use, and the delivery is always on time. I highly recommend Spikk to anyone looking for a reliable delivery service.",
   },
   {
-    name: "JOHN SMITH",
-    text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+    name: "GLORIA NWACHUKWU",
+    text: "Spikk has been a game-changer for me. I've been able to get all my groceries and other essentials delivered to my doorstep. The app is easy to use, and the delivery is always on time. ",
   },
   {
-    name: "JOHN SMITH",
-    text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+    name: "GIGI SUZANNE",
+    text: "If you're looking for a reliable delivery service, Spikk is the way to go. You can even send items to your loved ones quickly and easily.",
   },
   {
-    name: "JOHN SMITH",
-    text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+    name: "CHRISTIAN EMMANUEL",
+    text: "I totally recommend Spikk. It's a great way to get your items delivered to you quickly and easily.",
   },
   {
-    name: "JOHN SMITH",
-    text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+    name: "BASIT ABDULRAHMAN",
+    text: "I've used Spikk app to shop and send items. It's like a one-stop shop for all your needs coupled with the best delivery service.",
   },
   {
-    name: "JOHN SMITH",
-    text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-  },
-  {
-    name: "JOHN SMITH",
-    text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+    name: "CHISOM O.",
+    text: "I don't even bother to shop in the market anymore. Spikk is the best way to get your items delivered to you quickly and easily.",
   },
 ];
 
@@ -64,12 +60,12 @@ const WhySpikkSection = () => {
   return (
     <section className='w-full flex flex-col items-center gap-16 py-12 px-2 sm:px-0 bg-white'>
       {/* WHY SPIKK */}
-      <div className='w-full max-w-6xl flex flex-col items-center gap-2'>
-        <h2 className='text-[28px] sm:text-[32px] md:text-[36px] font-bold text-black text-center'>WHY SPIKK</h2>
+      <div className='w-full max-w-6xl flex flex-col items-center gap-2 xs:px-2'>
+        <h2 className='text-[28px] sm:text-[32px] md:text-[36px] xs:text-xl font-bold text-black text-center'>WHY SPIKK</h2>
         <p className='text-[16px] sm:text-[16px] text-[#222] max-w-2xl mx-auto text-center font-normal mb-8'>
           We make buying and sending items simple, fast, and built around your convenience.
         </p>
-        <div className='flex flex-col md:flex-row gap-8 w-full items-center justify-center'>
+        <div className='flex flex-col lg:flex-row gap-8 w-full items-center justify-center'>
           {/* Image */}
           <div className='flex-1 flex justify-center'>
             <div className='w-[370px] h-[320px] md:w-[610px] md:h-[520px] rounded-xl overflow-hidden shadow-lg'>
@@ -108,7 +104,7 @@ const WhySpikkSection = () => {
             {testimonials.map((testimonial, idx) => (
               <div
                 key={idx}
-                className='bg-[#F7F7F7] rounded-3xl border-[10px] border-soft100 shadow p-6 flex flex-col gap-4 min-w-[260px] w-[370px]'>
+                className='bg-soft100 rounded-3xl border-[10px] border-soft200 shadow p-6 flex flex-col gap-4 min-w-[260px] w-[400px] xs:w-[300px]'>
                 <span className='text-3xl text-blue-400 font-bold mb-2'>
                   <Image src='/images/svg/Approstrophe.svg' alt='Quote' width={24} height={24} />
                 </span>

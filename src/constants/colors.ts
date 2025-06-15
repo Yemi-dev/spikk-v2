@@ -37,6 +37,8 @@ interface Colors {
   soft300: string;
   blue200: string;
   gray900: string;
+  soft400: string;
+  soft500: string;
 }
 
 export const colors: Colors = {
@@ -78,4 +80,6 @@ export const colors: Colors = {
   soft200: "#E4E7E9",
   soft300: "#2D2D2D",
   blue200: "#2DA5F3",
+  soft400: "#4F5665",
+  soft500: "#E7EBF1",
 };

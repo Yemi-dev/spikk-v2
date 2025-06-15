@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import CustomButton from "@/ui/atoms/CustomButton";
 import { colors } from "@/constants/colors";
+import { useRouter } from "next/router";
 
 const steps = [
   {
@@ -40,11 +41,12 @@ const steps = [
 ];
 
 const HowItWorksSection = () => {
+  const router = useRouter();
   return (
-    <section className='w-full flex flex-col gap-8 items-center my-8 px-2 sm:px-0'>
-      <div className='text-center mb-2'>
+    <section id='how-it-works' className='w-full flex flex-col gap-8 items-center my-8 px-2 sm:px-0'>
+      <div className='text-center mb-2sm: px-4'>
         <h2 className='text-[28px] sm:text-[32px] md:text-[36px] font-bold text-black mb-2'>HOW IT WORKS</h2>
-        <p className='text-[16px] sm:text-[16px] text-[#222] mx-auto font-normal'>
+        <p className='text-[18px] sm:text-[16px] text-[#222] mx-auto font-normal'>
           From the comfort of your home/office, Spikk connects you to dedicated shoppers that run errands and deliver
           top notch services.
           <br />
@@ -66,7 +68,7 @@ const HowItWorksSection = () => {
                 <span className='text-[40px] font-extrabold text-black leading-none'>{step.number}</span>
               </div>
               <div className='flex items-start gap-2 mb-2'>
-                <Image src={step.icon} alt='icon' width={32} height={32} className='inline-block' />
+                <Image src={step.icon} alt='icon' width={40} height={32} className='inline-block' />
                 <div>
                   <h3 className='text-[32px] sm:text-[24px] font-semibold text-black'>{step.title}</h3>
                   <p className='text-[18px] sm:text-[16px] text-black font-normal max-w-md'>{step.description}</p>
@@ -89,7 +91,11 @@ const HowItWorksSection = () => {
         ))}
       </div>
       <div className='my-10'>
-        <CustomButton bgColor={colors.yellow700} padding='12px 0' className='font-bold w-[300px] text-[20px]'>
+        <CustomButton
+          bgColor={colors.yellow700}
+          onClick={() => router.push("/vendors#register")}
+          padding='12px 0'
+          className='font-bold w-[300px] text-[20px]'>
           LET&apos;S GET STARTED
         </CustomButton>
       </div>

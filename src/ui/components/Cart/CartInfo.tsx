@@ -2,78 +2,122 @@ import { colors } from "@/constants/colors";
 import CustomButton from "@/ui/atoms/CustomButton";
 import CustomTextInput from "@/ui/atoms/inputs/CustomTextField";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { MdClose } from "react-icons/md";
-import CustomSelectInput from "@/ui/atoms/inputs/CustomSelectInput";
 import CustomTextArea from "@/ui/atoms/inputs/CustomTextArea";
-// Mock cart data
-const initialCart = [
-  {
-    id: "1",
-    name: "5 Alive Pulpy Orange Fruit Drink 1000ml",
-    image: "/images/png/5alive.png",
-    price: 1350,
-    quantity: 1,
-  },
-  {
-    id: "2",
-    name: "5 Alive Pulpy Orange Fruit Drink 1000ml",
-    image: "/images/png/5alive.png",
-    price: 1350,
-    quantity: 2,
-  },
-];
-const CartInfo = () => {
-  const [cart, setCart] = useState(initialCart);
-  const [shopFor, setShopFor] = useState("self");
-  const [phone, setPhone] = useState("");
-  const [address, setAddress] = useState("");
-  const [someoneFirstName, setSomeoneFirstName] = useState("");
-  const [someoneLastName, setSomeoneLastName] = useState("");
-  const [someoneAddress, setSomeoneAddress] = useState("");
-  const [someoneRegion, setSomeoneRegion] = useState("");
-  const [someoneCity, setSomeoneCity] = useState("");
-  const [someonePhone, setSomeonePhone] = useState("");
-  const [someoneEmail, setSomeoneEmail] = useState("");
-  const [someoneNotes, setSomeoneNotes] = useState("");
+import { useCart } from "@/hooks/cart.hook";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
-  // Example options for region/state and city
-  const regionOptions = [
-    { value: "lagos", label: "Lagos" },
-    { value: "abuja", label: "Abuja" },
-    { value: "rivers", label: "Rivers" },
-  ];
-  const cityOptions = [
-    { value: "ikeja", label: "Ikeja" },
-    { value: "lekki", label: "Lekki" },
-    { value: "victoria_island", label: "Victoria Island" },
-  ];
+interface CartFormValues {
+  note: string;
+  drop_off_address: string;
+  drop_off_coordinates: Array<number>;
+  contact_no: string;
+  total_amount: number;
+  type: "shop" | "send";
+  scheduled: boolean;
+  scheduled_time?: string;
+  order_items: Array<{
+    product_id: string;
+    quantity: number;
+  }>;
+  payment_type: "pre-paid" | "post-paid";
+}
+
+const validationSchema = Yup.object({
+  contact_no: Yup.string().required("Phone number is required"),
+  drop_off_address: Yup.string().required("Address is required"),
+  drop_off_coordinates: Yup.array().of(Yup.number()).required("Coordinates are required"),
+  total_amount: Yup.number().required("Total amount is required"),
+  type: Yup.string().required("Type is required"),
+  scheduled: Yup.boolean(),
+  scheduled_time: Yup.string(),
+  order_items: Yup.array().of(
+    Yup.object({
+      product_id: Yup.string().required("Product ID is required"),
+      quantity: Yup.number().required("Quantity is required"),
+    })
+  ),
+  payment_type: Yup.string().required("Payment type is required"),
+});
+
+const CartInfo = () => {
+  const { cartItems, removeFromCart, updateCartItemQuantity, resetCart } = useCart();
 
   // Cart calculations
-  const subTotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const subTotal = cartItems.reduce((sum, item) => sum + Number(item.price) * item.quantity, 0);
   const deliveryFee = 0;
   const discount = 0;
   const total = subTotal + deliveryFee - discount;
 
+  const formik = useFormik<CartFormValues>({
+    initialValues: {
+      type: "shop",
+      contact_no: "",
+      drop_off_address: "",
+      drop_off_coordinates: [],
+      scheduled: false,
+      scheduled_time: "",
+      order_items: cartItems.map((item) => ({
+        product_id: item.id,
+        quantity: item.quantity,
+      })),
+      payment_type: "pre-paid",
+      note: "",
+      total_amount: total,
+    },
+    enableReinitialize: true,
+    validationSchema,
+    onSubmit: (values) => {
+      // Handle form submission
+      // console.log(values);
+    },
+  });
+
   // Handlers
   const handleQuantity = (id: string, delta: number) => {
-    setCart((prev) =>
-      prev.map((item) => (item.id === id ? { ...item, quantity: Math.max(1, item.quantity + delta) } : item))
-    );
+    const item = cartItems.find((item) => item.id === id);
+    if (item) {
+      const newQuantity = Math.max(1, item.quantity + delta);
+      updateCartItemQuantity(id, newQuantity);
+    }
   };
+
   const handleRemove = (id: string) => {
-    setCart((prev) => prev.filter((item) => item.id !== id));
+    removeFromCart(id);
   };
-  const handleUpdateCart = () => {
-    // Placeholder for API integration
+
+  const handleResetCart = () => {
+    // formik.resetForm();
+    resetCart();
   };
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Placeholder for API integration
-  };
-  const handleVoucherSubmit = () => {
-    // Placeholder for voucher API integration
-  };
+
+  // console.log(cartItems);
+
+  useEffect(() => {
+    const fetchCoordinates = async () => {
+      try {
+        const response = await fetch(
+          `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
+            formik.values.drop_off_address
+          )}&key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}`
+        );
+        const data = await response.json();
+        // console.log(data);
+        if (data.results && data.results[0]) {
+          const { lat, lng } = data.results[0].geometry.location;
+          formik.setFieldValue("drop_off_coordinates", [lng, lat]);
+        }
+      } catch (error) {
+        console.error("Error fetching coordinates:", error);
+      }
+    };
+
+    if (formik.values.drop_off_address) {
+      fetchCoordinates();
+    }
+  }, [formik.values.drop_off_address]);
 
   return (
     <section>
@@ -96,44 +140,54 @@ const CartInfo = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {cart.map((item) => (
-                    <tr key={item.id} className='border-b border-gray-100 last:border-0'>
-                      <td className='py-4 flex items-center gap-3 min-w-[220px]'>
-                        <button
-                          className='text-gray300 hover:text-error mr-2 border border-gray200 hover:border-error rounded-full p-1'
-                          onClick={() => handleRemove(item.id)}
-                          aria-label='Remove item'>
-                          <MdClose className='hover:text-error' />
-                        </button>
-                        <Image src={item.image} alt={item.name} width={40} height={80} className='object-contain' />
-                        <span className='text-sm text-black font-medium ml-2'>{item.name}</span>
-                      </td>
-                      <td className='py-4 text-sm font-medium text-gray700'>₦{item.price.toLocaleString()}</td>
-                      <td className='py-4'>
-                        <div className='grid grid-cols-3 items-center rounded border border-gray200 w-fit'>
+                  {cartItems.length > 0 ? (
+                    cartItems.map((item) => (
+                      <tr key={item.id} className='border-b border-gray-100 last:border-0'>
+                        <td className='py-4 flex items-center gap-3 min-w-[220px]'>
                           <button
-                            className='w-8 h-8 text-lg  text-gray700 hover:bg-gray100'
-                            onClick={() => handleQuantity(item.id, -1)}
-                            aria-label='Decrease quantity'>
-                            –
+                            className='text-gray300 hover:text-error mr-2 border border-gray200 hover:border-error rounded-full p-1'
+                            onClick={() => handleRemove(item.id)}
+                            aria-label='Remove item'>
+                            <MdClose className='hover:text-error' />
                           </button>
-                          <span className='text-center text-gray700 font-semibold'>
-                            {item.quantity.toString().padStart(2, "0")}
-                          </span>
-                          <button
-                            className='w-8 h-8  text-lg  text-gray700 hover:bg-gray100'
-                            onClick={() => handleQuantity(item.id, 1)}
-                            aria-label='Increase quantity'>
-                            +
-                          </button>
-                        </div>
+                          <Image src={item.image} alt={item.name} width={40} height={80} className='object-contain' />
+                          <span className='text-sm text-black font-medium ml-2'>{item.name}</span>
+                        </td>
+                        <td className='py-4 text-sm font-medium text-gray700'>
+                          ₦{Number(item.price).toLocaleString()}
+                        </td>
+                        <td className='py-4'>
+                          <div className='grid grid-cols-3 items-center rounded border border-gray200 w-fit'>
+                            <button
+                              className='w-8 h-8 text-lg  text-gray700 hover:bg-gray100'
+                              onClick={() => handleQuantity(item.id, -1)}
+                              aria-label='Decrease quantity'>
+                              –
+                            </button>
+                            <span className='text-center text-gray700 font-semibold'>
+                              {item.quantity.toString().padStart(2, "0")}
+                            </span>
+                            <button
+                              className='w-8 h-8  text-lg  text-gray700 hover:bg-gray100'
+                              onClick={() => handleQuantity(item.id, 1)}
+                              aria-label='Increase quantity'>
+                              +
+                            </button>
+                          </div>
+                        </td>
+                        <td className='py-4 text-sm font-semibold text-gray900'>
+                          ₦{(Number(item.price) * item.quantity).toLocaleString()}
+                        </td>
+                        <td></td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td colSpan={5} className='text-center py-4'>
+                        <span className='text-gray700'>No items in cart</span>
                       </td>
-                      <td className='py-4 text-sm font-semibold text-gray900'>
-                        ₦{(item.price * item.quantity).toLocaleString()}
-                      </td>
-                      <td></td>
                     </tr>
-                  ))}
+                  )}
                 </tbody>
               </table>
             </div>
@@ -141,49 +195,65 @@ const CartInfo = () => {
               <CustomButton
                 bgColor={colors.white}
                 color={colors.blue100}
-                className='border-2 border-blue100 px-6 py-2 rounded-lg font-semibold hover:bg-blue100/10 transition-all'
-                onClick={() => (window.location.href = "/marketplace")}>
+                className='border-2 border-blue100 px-6 py-2 xs:text-sm rounded-lg font-semibold hover:bg-blue100/10 transition-all'
+                onClick={() => (window.location.href = "/home")}>
                 ← RETURN TO SHOP
               </CustomButton>
               <CustomButton
                 bgColor={colors.white}
                 color={colors.blue100}
-                className='border-2 border-blue100 px-6 py-2 rounded-lg font-semibold hover:bg-blue100/10 transition-all'
-                onClick={handleUpdateCart}>
-                UPDATE CART
+                className='border-2 border-blue100 px-6 py-2 xs:text-sm rounded-lg font-semibold hover:bg-blue100/10 transition-all'
+                onClick={handleResetCart}>
+                RESET CART
               </CustomButton>
             </div>
           </div>
-          <form className='bg-white mt-6 flex flex-col gap-4' onSubmit={handleSubmit}>
+          <form className='bg-white mt-6 flex flex-col gap-4' onSubmit={formik.handleSubmit}>
             <div className='flex items-center gap-4 mb-2'>
               <button
                 type='button'
                 className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
-                  shopFor === "self" ? "border-yellow700" : "border-gray300"
+                  formik.values.type === "shop" ? "border-yellow700" : "border-gray300"
                 }`}
-                onClick={() => setShopFor("self")}
+                onClick={() => formik.setFieldValue("type", "shop")}
                 aria-label='Shop for self'>
-                {shopFor === "self" && <span className='w-3 h-3 bg-yellow700 rounded-full block'></span>}
+                {formik.values.type === "shop" && <span className='w-3 h-3 bg-yellow700 rounded-full block'></span>}
               </button>
               <span className='text-sm font-semibold text-soft300'>Shop for self</span>
             </div>
-            {shopFor === "self" && (
+            {formik.values.type === "shop" && (
               <div className='pl-6 flex flex-col gap-4 mb-8'>
                 <CustomTextInput
-                  name='phone'
+                  name='contact_no'
                   placeholder='Phone Number'
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
+                  value={formik.values.contact_no}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                   className='w-full text-gray900 text-sm'
                   label='Phone Number'
+                  errorMessage={formik.touched.contact_no && formik.errors.contact_no}
                 />
                 <CustomTextInput
-                  name='address'
+                  name='drop_off_address'
                   placeholder='Delivery Address'
-                  value={address}
-                  onChange={(e) => setAddress(e.target.value)}
+                  value={formik.values.drop_off_address}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                   className='w-full text-gray900 text-sm'
                   label='Delivery Address'
+                  errorMessage={formik.touched.drop_off_address && formik.errors.drop_off_address}
+                />
+                <h3 className='text-lg font-bold my-4 text-gray900'>Additional Information</h3>
+                <CustomTextArea
+                  name='note'
+                  placeholder='Notes about your order, e.g. special notes for delivery'
+                  value={formik.values.note}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  className='w-full text-gray900 text-sm'
+                  label='Notes (Optional)'
+                  rows={3}
+                  errorMessage={formik.touched.note && formik.errors.note}
                 />
               </div>
             )}
@@ -191,89 +261,49 @@ const CartInfo = () => {
               <button
                 type='button'
                 className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
-                  shopFor === "someone" ? "border-yellow700" : "border-gray300"
+                  formik.values.type === "send" ? "border-yellow700" : "border-gray300"
                 }`}
-                onClick={() => setShopFor("someone")}
+                onClick={() => formik.setFieldValue("type", "send")}
                 aria-label='Send to someone'>
-                {shopFor === "someone" && <span className='w-3 h-3 bg-yellow700 rounded-full block'></span>}
+                {formik.values.type === "send" && <span className='w-3 h-3 bg-yellow700 rounded-full block'></span>}
               </button>
               <span className='text-sm font-semibold text-soft300'>Send to someone</span>
             </div>
-            {shopFor === "someone" && (
+            {formik.values.type === "send" && (
               <div className='pl-6 flex flex-col gap-4 mb-8'>
-                <div className='flex gap-4'>
-                  <CustomTextInput
-                    name='someoneFirstName'
-                    placeholder='First name'
-                    value={someoneFirstName}
-                    onChange={(e) => setSomeoneFirstName(e.target.value)}
-                    className='w-full text-gray900 text-sm'
-                    label='First name'
-                  />
-                  <CustomTextInput
-                    name='someoneLastName'
-                    placeholder='Last name'
-                    value={someoneLastName}
-                    onChange={(e) => setSomeoneLastName(e.target.value)}
-                    className='w-full text-gray900 text-sm'
-                    label='Last name'
-                  />
-                </div>
                 <CustomTextInput
                   name='someoneAddress'
                   placeholder='Address'
-                  value={someoneAddress}
-                  onChange={(e) => setSomeoneAddress(e.target.value)}
+                  value={formik.values.drop_off_address}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                   className='w-full text-gray900 text-sm'
                   label='Address'
+                  errorMessage={formik.touched.drop_off_address && formik.errors.drop_off_address}
                 />
-                <div className='flex gap-4'>
-                  <CustomSelectInput
-                    name='someoneRegion'
-                    label='Region/State'
-                    options={regionOptions}
-                    value={someoneRegion}
-                    onChange={(e) => setSomeoneRegion(e.target.value)}
-                    className='w-full text-gray900 text-sm'
-                    placeholder='Select...'
-                  />
-                  <CustomSelectInput
-                    name='someoneCity'
-                    label='City'
-                    options={cityOptions}
-                    value={someoneCity}
-                    onChange={(e) => setSomeoneCity(e.target.value)}
-                    className='w-full text-gray900 text-sm'
-                    placeholder='Select...'
-                  />
-                </div>
                 <div className='flex gap-4'>
                   <CustomTextInput
                     name='someonePhone'
                     placeholder='Phone Number'
-                    value={someonePhone}
-                    onChange={(e) => setSomeonePhone(e.target.value)}
+                    value={formik.values.contact_no}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                     className='w-full text-gray900 text-sm'
                     label='Phone Number'
-                  />
-                  <CustomTextInput
-                    name='someoneEmail'
-                    placeholder='Email (optional)'
-                    value={someoneEmail}
-                    onChange={(e) => setSomeoneEmail(e.target.value)}
-                    className='w-full text-gray900 text-sm'
-                    label='Email (optional)'
+                    errorMessage={formik.touched.contact_no && formik.errors.contact_no}
                   />
                 </div>
                 <h3 className='text-lg font-bold my-4 text-gray900'>Additional Information</h3>
                 <CustomTextArea
                   name='someoneNotes'
                   placeholder='Notes about your order, e.g. special notes for delivery'
-                  value={someoneNotes}
-                  onChange={(e) => setSomeoneNotes(e.target.value)}
+                  value={formik.values.note}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                   className='w-full text-gray900 text-sm'
                   label='Notes (Optional)'
                   rows={3}
+                  errorMessage={formik.touched.note && formik.errors.note}
                 />
               </div>
             )}
@@ -302,26 +332,16 @@ const CartInfo = () => {
                 <span className='font-semibold text-gray900'>₦{total.toLocaleString()}</span>
               </div>
             </div>
-            {/* <div className='mb-4'>
-              <label className='block text-sm mb-1 font-medium'>Voucher Code</label>
-              <CustomTextInput
-                name='voucher'
-                placeholder='Enter Discount code'
-                value={voucher}
-                onChange={(e) => setVoucher(e.target.value)}
-                className='w-full'
-              />
-            </div> */}
             <CustomButton
               bgColor={colors.textYellow}
               color={colors.textDark}
-              className='w-full font-bold text-base py-3 mt-2 rounded-lg hover:opacity-90 transition-all'
-              type='button'
-              onClick={handleVoucherSubmit}>
+              className='w-full font-bold text-base py-3 mt-2 rounded-lg hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed'
+              type='submit'
+              disabled={!cartItems.length || formik.isSubmitting || Object.keys(formik.errors).length > 0}
+              onClick={formik.handleSubmit}>
               SUBMIT REQUEST →
             </CustomButton>
           </div>
-          {/* Shop for self/send to someone */}
         </aside>
       </section>
     </section>

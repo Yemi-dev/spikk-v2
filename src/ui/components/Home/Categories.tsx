@@ -1,16 +1,15 @@
-import { useGetAllCategories } from "@/hooks/marketplace.hook";
+// import { useGetAllCategories } from "@/hooks/marketplace.hook";
+// import { useRouter } from "next/router";
 import Image from "next/image";
-import { useRouter } from "next/router";
 import React from "react";
-import CategoriesSkeleton from "./CategoriesLoader";
-import Link from "next/link";
+// import CategoriesSkeleton from "./CategoriesLoader";
+// import Link from "next/link";
 
 const Categories = () => {
-  const { data: categoriesData, isLoading } = useGetAllCategories();
-  const router = useRouter();
-  const categories = categoriesData?.data?.data?.categories || [];
-  console.log({ categoriesData: categoriesData?.data?.data?.categories });
-  // const categories = [
+  // const { data: categoriesData, isLoading } = useGetAllCategories();
+  // const router = useRouter();
+  // const categories = categoriesData?.data?.data?.categories || [];
+
   //   {
   //     image: "/images/svg/groceries.svg",
   //     title: "Food & Groceries",
@@ -59,9 +58,9 @@ const Categories = () => {
           <div>
             <h3 className='text-xl font-bold text-black mb-1'>Shop Anything</h3>
             <p className='text-textGray text-sm mb-3'>Have a Picker help you with your shopping needs.</p>
-            <a href='#' className='text-blue100 text-base hover:underline'>
+            {/* <a href='#' className='text-blue100 text-base hover:underline'>
               Get Started ↗
-            </a>
+            </a> */}
           </div>
         </div>
         {/* Send Anything */}
@@ -73,36 +72,35 @@ const Categories = () => {
           <div>
             <h3 className='text-xl font-bold text-black mb-1'>Send Anything</h3>
             <p className='text-textGray text-sm mb-3'>Send anything to your friends and family easily.</p>
-            <a href='#' className='text-blue100 text-base hover:underline'>
+            {/* <a href='#' className='text-blue100 text-base hover:underline'>
               Get Started ↗
-            </a>
+            </a> */}
           </div>
         </div>
       </div>
       {/* Categories Section */}
-      <div className='w-full flex flex-col items-center mt-6'>
+      {/* <div className='w-full flex flex-col items-center mt-6'>
         <h2 className='text-2xl md:text-3xl font-bold text-black mb-8 text-center'>SHOP WITH CATEGORIES</h2>
         {isLoading ? (
           <CategoriesSkeleton />
         ) : (
           <div className='flex flex-wrap justify-center gap-2 w-full'>
-            {/* Category Cards */}
             {categories.map(
               (category: { image: string; name: string; banners: string[]; id: string }, index: number) => (
                 <button
                   key={index}
-                  className='flex flex-col items-center justify-center bg-white border border-soft200 rounded-xl p-5 w-[165px] h-[240px] shadow-sm hover:bg-soft200 hover:shadow-md transition-all duration-300'
+                  className='flex flex-col items-center justify-center bg-white border border-soft200 rounded-xl p-3 w-[165px] h-[200px] shadow-sm hover:bg-soft200 hover:shadow-md transition-all duration-300'
                   onClick={() => {
                     router.push(`/marketplace/category?type=${category.name}&ref=${category.id}`);
                   }}>
                   <Image
                     src={category.image}
                     alt={category.name}
-                    width={80}
-                    height={120}
+                    width={110}
+                    height={140}
                     className='mb-3 object-cover object-center'
                   />
-                  <span className='text-base font-medium text-black text-center'>{category.name}</span>
+                  <span className='text-sm font-medium text-black text-center'>{category.name}</span>
                 </button>
               )
             )}
@@ -113,7 +111,7 @@ const Categories = () => {
           className='mt-8 text-blue100 text-base font-semibold flex items-center gap-2 hover:underline'>
           GO TO MARKETPLACE <span className='text-lg'>→</span>
         </Link>
-      </div>
+      </div> */}
     </section>
   );
 };

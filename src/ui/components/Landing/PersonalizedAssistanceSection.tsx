@@ -3,8 +3,10 @@ import Image from "next/image";
 import CustomButton from "../../atoms/CustomButton";
 import { colors } from "@/constants/colors";
 import Divider from "../../atoms/Divider";
+import { useRouter } from "next/router";
 
 const PersonalizedAssistanceSection = () => {
+  const router = useRouter();
   return (
     <section className='w-full bg-black py-20 flex flex-col items-center justify-center px-4 gap-10 md:gap-20'>
       <div className='flex flex-col items-center justify-center'>
@@ -47,6 +49,7 @@ const PersonalizedAssistanceSection = () => {
             <CustomButton
               bgColor={colors.yellow700}
               color='#232323'
+              onClick={() => router.push("/home#how-it-works")}
               className='font-bold px-6 py-3 text-base mt-2 hover:opacity-90 transition-all'>
               LEARN MORE
               <svg className='ml-2' width='18' height='18' fill='none' viewBox='0 0 18 18'>

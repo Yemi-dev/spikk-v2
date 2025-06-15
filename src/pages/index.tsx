@@ -12,7 +12,7 @@ export default function Home() {
   return (
     <div className='bg-white font-gilroy relative'>
       <Header />
-      <main className='flex flex-col gap-[32px] w-full row-start-2 items-center sm:items-start text-textDark bg-white'>
+      <main className='flex flex-col w-full row-start-2 items-center sm:items-start text-textDark bg-white'>
         <Hero />
         <Brand />
         <ExperienceSection />

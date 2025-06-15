@@ -2,15 +2,15 @@ import React, { useState } from "react";
 
 const videos = [
   {
-    src: "https://www.youtube.com/embed/bf2tFixliMA?si=f6ynEg4bFjnq2Fy0",
+    src: "https://www.youtube.com/embed/dqKahaxTPzQ?si=brT8RYJwbPwf_bJY",
     poster: "/images/png/demo-poster.png",
   },
   {
-    src: "https://www.youtube.com/embed/mtPqxJBMXCQ?si=9EAaClDjs8Fqk2I7",
+    src: "https://www.youtube.com/embed/dqKahaxTPzQ?si=brT8RYJwbPwf_bJY",
     poster: "/images/png/HeroRight.png",
   },
   {
-    src: "https://www.youtube.com/embed/bf2tFixliMA?si=f6ynEg4bFjnq2Fy0",
+    src: "https://www.youtube.com/embed/dqKahaxTPzQ?si=brT8RYJwbPwf_bJY",
     poster: "/images/png/Marketplace.png",
   },
 ];
@@ -36,13 +36,13 @@ const ProductDemoSection = () => {
   };
 
   return (
-    <section className='w-full bg-black py-20 flex flex-col items-center xlg:px-10 px-4'>
+    <section className='w-full bg-black py-24 flex flex-col items-center xlg:px-10 px-4'>
       {/* Demo Button */}
-      <button className='mb-8 px-8 py-3 rounded-full bg-gray800 text-white font-bold text-2xl shadow-md hover:bg-gray300 transition'>
+      <div className='mb-8 px-8 py-3 rounded-full bg-gray800 text-white font-bold text-2xl xs:text-xl shadow-md'>
         WATCH PRODUCT DEMO
-      </button>
+      </div>
       {/* Headline */}
-      <h2 className='text-white text-center text-3xl md:text-5xl font-bold max-w-[1000px] mb-10 leading-tight'>
+      <h2 className='text-white text-center text-3xl md:text-5xl xs:text-xl font-bold max-w-[1000px] mb-10 leading-tight'>
         Discover how Spikk transforms everyday errands into a seamless experience
       </h2>
       {/* Video Carousel */}

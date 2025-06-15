@@ -5,7 +5,7 @@ import { FaAngleLeft } from "react-icons/fa6";
 import { useRouter } from "next/router";
 import ProductGrid from "@/ui/components/Marketplace/ProductGrid";
 import Image from "next/image";
-import { useGetCategoryByRef } from "@/hooks/marketplace.hook";
+import { useGetCategoryByID, useGetCategoryByRef } from "@/hooks/marketplace.hook";
 import CategoriesSkeleton from "@/ui/components/Home/CategoriesLoader";
 
 const CategoryPage = () => {
@@ -20,13 +20,14 @@ const CategoryPage = () => {
     isPending,
   } = useGetCategoryByRef(ref as string, {
     page: productsPage,
-    limit: 20,
+    pageSize: 10,
     search: search,
   });
-  const categoryProducts = category?.data?.data ?? [];
-  const categoryInfo = category?.data?.data[0]?.category ?? {};
+  const categoryProducts = category?.data?.data?.products ?? [];
   const categoryTotalPages = category?.data?.pagination?.totalPages ?? 1;
-  console.log({ category });
+  const { data: categoryDetail, isPending: isCategoryDetailPending } = useGetCategoryByID(ref as string);
+  const categoryDetails = categoryDetail?.data?.data;
+  // console.log({ cat: categoryInfo?.banners?.[0]?.trimEnd(), categoryDetails });
 
   return (
     <div className='bg-white font-gilroy relative'>
@@ -35,16 +36,24 @@ const CategoryPage = () => {
         <div className='w-full my-10 pt-20 max-w-[1300px] mx-auto px-12 sm:px-6'>
           <button className='flex items-center gap-2  justify-start w-full mb-12' onClick={() => router.back()}>
             <FaAngleLeft size={18} />
-            <h2 className='text-2xl font-bold'>{categoryInfo.name}</h2>
+            {isCategoryDetailPending ? (
+              <div className='w-[300px] h-6 bg-soft200 animate-pulse rounded-sm' />
+            ) : (
+              <h2 className='text-2xl font-bold'>{categoryDetails?.name}</h2>
+            )}
           </button>
           <div className='w-full mt-8'>
-            <Image
-              src={"/images/png/Banner.png"}
-              alt='category'
-              width={1240}
-              height={450}
-              className='w-full h-full object-cover mb-10'
-            />
+            {isCategoryDetailPending ? (
+              <div className='w-full h-[450px] bg-soft200 animate-pulse rounded-sm mb-10' />
+            ) : (
+              <Image
+                src={categoryDetails?.banners?.[0]?.trimEnd() || "/images/png/Banner.png"}
+                alt='category'
+                width={1240}
+                height={450}
+                className='w-full h-full object-cover mb-10'
+              />
+            )}
             {isLoading ? (
               <CategoriesSkeleton />
             ) : (

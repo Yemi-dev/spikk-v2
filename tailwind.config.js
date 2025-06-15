@@ -82,6 +82,8 @@ const config = {
       soft200: "#E4E7E9",
       soft300: "#2D2D2D",
       blue200: "#2DA5F3",
+      soft400: "#4F5665",
+      soft500: "#E7EBF1",
     },
     extend: {
       backgroundImage: {

@@ -42,16 +42,17 @@ const MarketplaceLanding = () => {
     isPending: isMarketplaceProductsPending,
   } = useGetAllMarketplaceProducts({
     page: productsPage,
-    limit: 20,
+    pageSize: 40,
     search: search,
+    name: "",
   });
   const marketplaceProducts = useMemo(
     () => marketplaceProductsData?.data?.data?.products || [],
     [marketplaceProductsData]
   );
-  console.log({ marketplaceProducts });
+  // console.log({ marketplaceProducts });
   const marketplaceProductsTotalPages = marketplaceProductsData?.data?.data?.pagination?.totalPages || 1;
-  console.log({ marketplaceProducts });
+  // console.log({ marketplaceProducts });
   const [activeSlide, setActiveSlide] = useState(0);
 
   useEffect(() => {
@@ -154,7 +155,7 @@ const MarketplaceLanding = () => {
                 (category: { image: string; name: string; banners: string[]; id: string }, index: number) => (
                   <button
                     key={index}
-                    className='flex flex-col items-center justify-center bg-white border border-soft200 rounded-xl px-3 py-3 w-[125px] h-[240px] shadow-sm hover:opacity-60 hover:shadow-md transition-all duration-300'
+                    className='flex flex-col items-center justify-center bg-white border border-soft200 rounded-xl px-3 py-3 w-[150px] h-[200px] shadow-sm hover:opacity-60 hover:shadow-md transition-all duration-300'
                     onClick={() => {
                       router.push(`/marketplace/category?type=${category.name}&ref=${category.id}`);
                     }}>
@@ -162,8 +163,8 @@ const MarketplaceLanding = () => {
                       src={category.image}
                       alt={category.name}
                       width={100}
-                      height={100}
-                      className='w-[100px] h-[100px] mb-3 object-cover object-center'
+                      height={140}
+                      className='w-[120px] h-[140px] mb-3 object-cover object-center'
                     />
                     <span className='text-sm font-medium text-black text-center'>{category.name}</span>
                   </button>

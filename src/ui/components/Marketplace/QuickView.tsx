@@ -6,6 +6,10 @@ import CustomButton from "@/ui/atoms/CustomButton";
 import { Product } from "./ProductGrid";
 import { colors } from "@/constants/colors";
 import { formatPrice } from "@/utils";
+import { useRouter } from "next/router";
+import { FaArrowRight } from "react-icons/fa6";
+import { useCart } from "@/hooks/cart.hook";
+import { toast } from "react-toastify";
 
 const QuickView = ({
   viewProduct,
@@ -14,8 +18,19 @@ const QuickView = ({
   viewProduct: Product;
   setViewProduct: (product: Product | null) => void;
 }) => {
+  const router = useRouter();
+  const { cartItems, addToCart } = useCart();
   const [quantity, setQuantity] = useState(1);
   const [isImageLoading, setIsImageLoading] = useState(true);
+
+  const handleAddToCart = () => {
+    addToCart({ ...viewProduct, quantity });
+    toast.success(`${quantity} ${viewProduct.name} added to cart`);
+    setViewProduct(null);
+  };
+
+  const isAlreadyInCart = cartItems.some((item: Product) => item.id === viewProduct.id);
+
   return (
     <CenterModal
       isOpen={!!viewProduct}
@@ -56,19 +71,34 @@ const QuickView = ({
             <label className='block text-soft300 mb-2 font-medium'>How many quantity do you want?</label>
             <input
               type='number'
-              className='w-20 p-2 rounded-md shadow bg-white border border-gray200 text-soft300 text-lg focus:outline-none'
+              className='w-20 p-2 rounded-md shadow bg-white border border-gray200 text-soft300 text-lg focus:outline-none disabled:opacity-50'
               min={1}
               max={10}
               value={quantity}
+              disabled={isAlreadyInCart}
               onChange={(e) => setQuantity(Number(e.target.value))}
             />
           </div>
-          <CustomButton
-            bgColor={colors.yellow700}
-            color='#2D2D2D'
-            className='font-bold px-8 py-3 text-base mb-8 shadow-md hover:opacity-90 transition-all w-full max-w-[320px]'>
-            Add to Cart
-          </CustomButton>
+          <div className='flex gap-4 items-center w-full'>
+            <CustomButton
+              bgColor={isAlreadyInCart ? colors.yellow100 : colors.yellow700}
+              color={isAlreadyInCart ? "#2D2D2D" : "#2D2D2D"}
+              className='font-bold px-8 py-3 text-base disabled:opacity-50 mb-8 shadow-md hover:opacity-90 transition-all w-full max-w-[320px]'
+              onClick={handleAddToCart}
+              disabled={isAlreadyInCart}>
+              {isAlreadyInCart ? "Added" : "Add to Cart"}
+            </CustomButton>
+            {isAlreadyInCart && (
+              <CustomButton
+                onClick={() => router.push("/cart")}
+                bgColor={"transparent"}
+                color={colors.blue100}
+                borderRadius={`rounded-[40px]`}
+                className='font-semibold whitespace-nowrap w-full'>
+                View Cart <FaArrowRight />
+              </CustomButton>
+            )}
+          </div>
           <div className='mb-4'>
             <h3 className='font-bold text-soft300 text-lg mt-4'>Product Details</h3>
             <p className='text-soft300 text-base'>{viewProduct.description}</p>

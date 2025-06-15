@@ -26,16 +26,16 @@ const steps = [
 
 const HowItWorksSection = () => {
   return (
-    <section className='w-full bg-[#f3f7f9] py-20 flex flex-col items-center px-4'>
+    <section id='how-it-works' className='w-full bg-[#f3f7f9] py-20 flex flex-col items-center px-4'>
       {/* Pill */}
       <div className='mb-6'>
         <div className='w-full text-gray300 text-center text-[50px] -mb-4'>...</div>
-        <span className='inline-block bg-white border border-gray300 rounded-3xl px-6 py-2 font-bold mb-8 text-2xl text-black'>
+        <span className='inline-block bg-white border border-gray300 rounded-3xl px-6 py-2 font-bold mb-8 text-2xl xs:text-xl text-black'>
           HOW IT WORKS
         </span>
       </div>
       {/* Headline */}
-      <h2 className='text-center text-black text-3xl md:text-5xl font-bold max-w-[900px] mb-10 leading-tight'>
+      <h2 className='text-center text-black text-3xl md:text-5xl xs:text-xl font-bold max-w-[900px] mb-10 leading-tight'>
         Seamless shopping, pickup and delivery
         <br className='hidden md:block' /> all in 4 simple steps
       </h2>
@@ -102,16 +102,16 @@ const HowItWorksSection = () => {
         </div>
       </div>
       {/* App Store Badges */}
-      <div className='flex flex-row gap-4 mb-8'>
-        <a href='#' target='_blank' rel='noopener noreferrer'>
+      <div className='flex flex-row gap-4 mb-12'>
+        <a href='https://apps.apple.com/ng/app/spikk/id1619072479' target='_blank' rel='noopener noreferrer'>
           <Image src='/images/svg/Appstore.svg' alt='Download on the App Store' width={160} height={50} />
         </a>
-        <a href='#' target='_blank' rel='noopener noreferrer'>
+        <a href='https://play.google.com/store/apps/details?id=com.spikk' target='_blank' rel='noopener noreferrer'>
           <Image src='/images/svg/Playstore.svg' alt='Get it on Google Play' width={180} height={50} />
         </a>
       </div>
       {/* Bottom Description */}
-      <p className='text-center text-gray-500 text-lg max-w-[900px] mx-auto'>
+      <p className='text-center text-black600 text-lg xs:text-base max-w-[1200px] mx-auto'>
         From the comfort of your home/offices, Spikk connects you to dedicated shoppers that run errands and deliver top
         notch services.
         <br className='hidden md:block' />
