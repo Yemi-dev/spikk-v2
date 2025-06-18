@@ -1,19 +1,10 @@
-import Brand from "@/ui/components/Landing/Brand";
-import Header from "@/ui/components/Landing/Header";
-import Hero from "@/ui/components/Landing/Hero";
-import ExperienceSection from "@/ui/components/Landing/ExperienceSection";
-import ProductDemoSection from "@/ui/components/Landing/ProductDemoSection";
-import HowItWorksSection from "@/ui/components/Landing/HowItWorksSection";
-import PersonalizedAssistanceSection from "@/ui/components/Landing/PersonalizedAssistanceSection";
-import MarketplaceTransparencySection from "@/ui/components/Landing/MarketplaceTransparencySection";
-import LandingFooter from "@/ui/components/Landing/LandingFooter";
-import SEOHead from "@/ui/components/SEO/SEOHead";
+import React from 'react'
+import SEOHead from '../SEO/SEOHead'
 
-export default function Home() {
+const HomeSE0 = () => {
   return (
-    <>
-      <SEOHead
-        title='Spikk - Your Trusted Marketplace for Fast Delivery & Quality Products'
+    <SEOHead
+        title='Spikk - Shop and Send Quality Products with Fast Delivery'
         description='Discover Spikk, the leading marketplace platform offering fast delivery, quality products, and personalized assistance. Shop groceries, essentials, wellness products, and more with transparent pricing and reliable service.'
         keywords='Spikk, marketplace, fast delivery, groceries, essentials, wellness products, online shopping, Nigeria, e-commerce, quality products, transparent pricing, personalized assistance, same day delivery'
         image='/images/png/Banner.png'
@@ -41,19 +32,7 @@ export default function Home() {
           },
         }}
       />
-      <div className='bg-white font-gilroy relative'>
-        <Header />
-        <main className='flex flex-col w-full row-start-2 items-center sm:items-start text-textDark bg-white'>
-          <Hero />
-          <Brand />
-          <ExperienceSection />
-          <ProductDemoSection />
-          <HowItWorksSection />
-          <PersonalizedAssistanceSection />
-          <MarketplaceTransparencySection />
-        </main>
-        <LandingFooter />
-      </div>
-    </>
-  );
+  )
 }
+
+export default HomeSE0

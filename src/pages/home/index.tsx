@@ -6,9 +6,12 @@ import Categories from "@/ui/components/Home/Categories";
 import HowItWorksSection from "@/ui/components/Home/HowItWorksSection";
 import WhySpikkSection from "@/ui/components/Home/WhySpikkSection";
 import GetStartedSection from "@/ui/components/Home/GetStartedSection";
+import HomeSE0 from "@/ui/components/Home/HomeSE0";
 
 export default function Homepage() {
   return (
+   <>
+   <HomeSE0 />
     <div className='bg-white font-gilroy relative'>
       <HomeHeader />
       <main className='flex flex-col gap-[32px] w-full row-start-2 items-center sm:items-start text-textDark bg-white'>
@@ -19,6 +22,6 @@ export default function Homepage() {
         <GetStartedSection />
       </main>
       <HomeFooter />
-    </div>
+    </div></>
   );
 }

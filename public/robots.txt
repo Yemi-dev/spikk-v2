@@ -1,0 +1,19 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://spikk.com/sitemap.xml
+
+# Disallow admin or private areas (if any)
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+
+# Allow important pages
+Allow: /marketplace
+Allow: /careers
+Allow: /vendors
+Allow: /cart
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1 
