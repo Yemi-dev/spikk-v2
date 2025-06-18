@@ -72,10 +72,10 @@ const HomeFooter = () => {
 
       {/* Bottom row */}
       <div className='max-w-[1300px] mx-auto flex flex-col md:flex-row justify-between items-center gap-2 text-sm text-gray-400'>
-        <Link href='/' className='hover:text-white transition mb-2 md:mb-0'>
+        <Link href='/privacy-policy' className='hover:text-white transition mb-2 md:mb-0'>
           Privacy Policy
         </Link>
-        <span className="text-soft400">Copyright © {new Date().getFullYear()} Buimas</span>
+        <span className='text-soft400'>Copyright © {new Date().getFullYear()} Buimas</span>
       </div>
     </footer>
   );

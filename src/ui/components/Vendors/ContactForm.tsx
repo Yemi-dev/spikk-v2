@@ -9,7 +9,7 @@ import CustomTextArea from "@/ui/atoms/inputs/CustomTextArea";
 import { useContactUs } from "@/hooks/contact.hook";
 import { toast } from "react-toastify";
 
-interface ContactFormValues {
+interface ContactFormData {
   email: string;
   name: string;
   message: string;
@@ -23,7 +23,7 @@ const validationSchema = Yup.object({
 
 const ContactForm = () => {
   const { mutate: sendRequest, isPending } = useContactUs();
-  const formik = useFormik<ContactFormValues>({
+  const formik = useFormik<ContactFormData>({
     initialValues: {
       email: "",
       name: "",
@@ -36,8 +36,12 @@ const ContactForm = () => {
           toast.success(data.data.message);
           resetForm();
         },
-        onError: (error: any) => {
-          toast.error(error?.response?.data?.message);
+        onError: (error: unknown) => {
+          const errorMessage =
+            error && typeof error === "object" && "response" in error
+              ? (error.response as any)?.data?.message
+              : "An error occurred";
+          toast.error(errorMessage);
         },
       });
     },

@@ -3,10 +3,9 @@ import axiosInstance from "@/constants/url";
 
 interface ContactFormData {
   email: string;
-  phone: string;
+  name: string;
   message: string;
 }
-
 
 export function useContactUs() {
   const queryClient = useQueryClient();

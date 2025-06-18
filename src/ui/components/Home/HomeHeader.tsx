@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import { useRouter } from "next/router";
-import { FiShoppingBag, FiUser, FiMenu, FiX } from "react-icons/fi";
+import { FiShoppingBag, FiMenu, FiX } from "react-icons/fi";
 import routes from "@/constants/routes";
 import { useCart } from "@/hooks/cart.hook";
 

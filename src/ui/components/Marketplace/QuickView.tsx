@@ -24,12 +24,19 @@ const QuickView = ({
   const [isImageLoading, setIsImageLoading] = useState(true);
 
   const handleAddToCart = () => {
-    addToCart({ ...viewProduct, quantity });
+    addToCart({
+      id: viewProduct.id,
+      name: viewProduct.name,
+      image: viewProduct.image,
+      price: Number(viewProduct.price),
+      category: viewProduct.category,
+      quantity,
+    });
     toast.success(`${quantity} ${viewProduct.name} added to cart`);
     setViewProduct(null);
   };
 
-  const isAlreadyInCart = cartItems.some((item: Product) => item.id === viewProduct.id);
+  const isAlreadyInCart = cartItems.some((item) => item.id === viewProduct.id);
 
   return (
     <CenterModal

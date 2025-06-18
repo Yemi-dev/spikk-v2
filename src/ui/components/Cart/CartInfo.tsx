@@ -69,7 +69,7 @@ const CartInfo = () => {
     },
     enableReinitialize: true,
     validationSchema,
-    onSubmit: (values) => {
+    onSubmit: () => {
       // Handle form submission
       // console.log(values);
     },
@@ -117,7 +117,7 @@ const CartInfo = () => {
     if (formik.values.drop_off_address) {
       fetchCoordinates();
     }
-  }, [formik.values.drop_off_address]);
+  }, [formik.values.drop_off_address, formik]);
 
   return (
     <section>
@@ -150,7 +150,13 @@ const CartInfo = () => {
                             aria-label='Remove item'>
                             <MdClose className='hover:text-error' />
                           </button>
-                          <Image src={item.image} alt={item.name} width={40} height={80} className='object-contain' />
+                          <Image
+                            src={item.image || "/images/png/demo-poster.png"}
+                            alt={item.name}
+                            width={40}
+                            height={80}
+                            className='object-contain'
+                          />
                           <span className='text-sm text-black font-medium ml-2'>{item.name}</span>
                         </td>
                         <td className='py-4 text-sm font-medium text-gray700'>
