@@ -25,7 +25,7 @@ const steps = [
     number: "03.",
     icon: "/images/svg/Scooter.svg",
     title: "Fast Delivery",
-    description: "We’ll process your order right away and deliver it promptly.",
+    description: "We'll process your order right away and deliver it promptly.",
     image: "/images/png/HeroRight.png", // Placeholder for Wallet screen
     bg: "bg-[#FFE8EA]",
   },
@@ -68,7 +68,18 @@ const HowItWorksSection = () => {
                 <span className='text-[40px] font-extrabold text-black leading-none'>{step.number}</span>
               </div>
               <div className='flex items-start gap-2 mb-2'>
-                <Image src={step.icon} alt='icon' width={40} height={32} className='inline-block' />
+                <Image
+                  src={step.icon}
+                  alt='icon'
+                  width={40}
+                  height={32}
+                  quality={100}
+                  priority
+                  placeholder='blur'
+                  blurDataURL='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=='
+                  unoptimized
+                  className='inline-block'
+                />
                 <div>
                   <h3 className='text-[32px] sm:text-[24px] font-semibold text-black'>{step.title}</h3>
                   <p className='text-[18px] sm:text-[16px] text-black font-normal max-w-md'>{step.description}</p>
