@@ -41,6 +41,7 @@ const ApplyModal = ({
       });
     },
   });
+  const isDisabled = isPending || formik.isSubmitting || formik.isValid;
 
   return (
     <CenterModal width='600px' toggleModal={() => setOpenModal(false)} isOpen={true}>
@@ -81,7 +82,7 @@ const ApplyModal = ({
           placeholder='Link to resume'
           type='text'
           bgColor='bg-white'
-          className='text-base text-textDark'
+          className='text-base text-textDark mb-8'
           borderRadius='rounded-lg'
           padding='p-4'
           value={formik.values.resume}
@@ -91,9 +92,11 @@ const ApplyModal = ({
         />
         <CustomButton
           type='submit'
-          bgColor={colors.black}
+          disabled={isDisabled}
           color={colors.white}
-          className='w-fit font-semibold'
+          className={`w-fit font-semibold rounded-xl ${
+            isPending ? "bg-gray400 text-white" : "bg-black hover:bg-black hover:opacity-80"
+          } transition-all duration-200 ease-in-out w-[200px]`}
           isLoading={isPending}>
           {isPending ? "Submitting..." : "Submit"}
         </CustomButton>

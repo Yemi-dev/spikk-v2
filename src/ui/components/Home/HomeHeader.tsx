@@ -29,7 +29,7 @@ const HomeHeader = () => {
               <li key={link.label}>
                 <button
                   onClick={() => router.push(link.href)}
-                  className={`uppercase tracking-wide text-[16px] md:text-[14px] px-2 py-1 transition-colors duration-150 ${
+                  className={`uppercase tracking-wide text-[16px] md:text-[17px] font-semibold px-2 py-1 transition-colors duration-150 ${
                     router.asPath === link.href ? "text-black font-bold" : "text-gray400 hover:text-black font-medium"
                   }`}>
                   {link.label}

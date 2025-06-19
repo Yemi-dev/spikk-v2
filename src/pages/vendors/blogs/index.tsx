@@ -53,6 +53,7 @@ const Blogs = () => {
               className='w-fit font-bold uppercase'
               color={colors.white}
               bgColor={colors.black}
+              borderRadius='rounded-xl'
               onClick={() => {}}>
               Load More
             </CustomButton>

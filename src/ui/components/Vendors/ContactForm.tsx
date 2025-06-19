@@ -1,4 +1,3 @@
-import { colors } from "@/constants/colors";
 import CustomButton from "@/ui/atoms/CustomButton";
 import CustomTextInput from "@/ui/atoms/inputs/CustomTextField";
 import Image from "next/image";
@@ -95,9 +94,7 @@ const ContactForm = () => {
             />
             <div className='mt-6 flex justify-center'>
               <CustomButton
-                bgColor={colors.textYellow}
-                color={colors.textDark}
-                className='font-semibold text-base px-10 py-3 w-full lg:w-[340px] rounded-lg hover:opacity-90 transition-all'
+                className='text-textBlack bg-yellow700 hover:text-white font-semibold text-base px-10 py-3 w-full lg:w-[340px] rounded-xl hover:opacity-90 transition-all'
                 borderRadius='8px'
                 type='submit'>
                 {isPending ? "SUBMITTING..." : "SUBMIT DETAILS"}

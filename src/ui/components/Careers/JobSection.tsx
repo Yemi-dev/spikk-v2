@@ -136,7 +136,7 @@ const JobSection = ({ initialJobs }: JobSectionProps) => {
               </div>
               <CustomButton
                 onClick={() => setOpenModal(true)}
-                className='mt-6 w-fit font-semibold'
+                className='mt-6 w-fit font-semibold hover:opacity-80 transition-all duration-200 ease-in-out rounded-xl'
                 bgColor={colors.black}
                 color={colors.white}>
                 Apply Now

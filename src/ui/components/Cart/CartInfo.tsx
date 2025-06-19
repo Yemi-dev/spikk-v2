@@ -1,4 +1,3 @@
-import { colors } from "@/constants/colors";
 import CustomButton from "@/ui/atoms/CustomButton";
 import CustomTextInput from "@/ui/atoms/inputs/CustomTextField";
 import Image from "next/image";
@@ -199,16 +198,12 @@ const CartInfo = () => {
             </div>
             <div className='flex s:flex-col flex-row justify-between items-center mt-6 gap-4'>
               <CustomButton
-                bgColor={colors.white}
-                color={colors.blue100}
-                className='border-2 border-blue100 px-6 py-2 xs:text-sm rounded-lg font-semibold hover:bg-blue100/10 transition-all'
+                className='text-blue100 bg-white hover:bg-yellow700 hover:border-yellow700 hover:text-black border-2 border-blue100 px-6 py-2 xs:text-sm rounded-lg font-semibold transition-all'
                 onClick={() => (window.location.href = "/home")}>
                 ← RETURN TO SHOP
               </CustomButton>
               <CustomButton
-                bgColor={colors.white}
-                color={colors.blue100}
-                className='border-2 border-blue100 px-6 py-2 xs:text-sm rounded-lg font-semibold hover:bg-blue100/10 transition-all'
+                className=' text-blue100 bg-white hover:bg-yellow700 hover:border-yellow700 hover:text-black border-2 border-blue100 px-6 py-2 xs:text-sm rounded-lg font-semibold  transition-all'
                 onClick={handleResetCart}>
                 RESET CART
               </CustomButton>
@@ -339,9 +334,7 @@ const CartInfo = () => {
               </div>
             </div>
             <CustomButton
-              bgColor={colors.textYellow}
-              color={colors.textDark}
-              className='w-full font-bold text-base py-3 mt-2 rounded-lg hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed'
+              className='text-textDark bg-yellow700 hover:text-white w-full font-bold text-base py-3 mt-2 rounded-lg hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed'
               type='submit'
               disabled={!cartItems.length || formik.isSubmitting || Object.keys(formik.errors).length > 0}
               onClick={formik.handleSubmit}>

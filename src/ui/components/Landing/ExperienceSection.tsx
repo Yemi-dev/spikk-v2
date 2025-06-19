@@ -44,10 +44,18 @@ const ExperienceSection = () => {
       </div>
       {/* App Store Badges */}
       <div className='flex flex-row gap-4 mb-8'>
-        <a href='https://apps.apple.com/ng/app/spikk/id1619072479' target='_blank' rel='noopener noreferrer'>
+        <a
+          className='hover:opacity-80 transition-all duration-200 ease-in-out'
+          href='https://apps.apple.com/ng/app/spikk/id1619072479'
+          target='_blank'
+          rel='noopener noreferrer'>
           <Image src='/images/svg/Appstore.svg' alt='Download on the App Store' width={213} height={71} />
         </a>
-        <a href='https://play.google.com/store/apps/details?id=com.spikk' target='_blank' rel='noopener noreferrer'>
+        <a
+          className='hover:opacity-80 transition-all duration-200 ease-in-out'
+          href='https://play.google.com/store/apps/details?id=com.spikk'
+          target='_blank'
+          rel='noopener noreferrer'>
           <Image src='/images/svg/Playstore.svg' alt='Get it on Google Play' width={239} height={71} />
         </a>
       </div>

@@ -1,6 +1,5 @@
 import React from "react";
 import CustomButton from "@/ui/atoms/CustomButton";
-import { colors } from "@/constants/colors";
 import { useRouter } from "next/router";
 
 const GetStartedSection = () => {
@@ -21,10 +20,8 @@ const GetStartedSection = () => {
               </p>
             </div>
             <CustomButton
-              bgColor={"transparent"}
-              color={colors.blue100}
               onClick={() => router.push("/vendors#register")}
-              className='font-bold border border-blue100 text-blue100 px-6 py-3 text-base hover:bg-blue100 hover:text-white transition-all w-fit'>
+              className=' text-blue100 bg-transparent hover:bg-yellow700 hover:border-yellow700 hover:text-black rounded-xl font-bold border border-blue100 px-6 py-3 text-base transition-all w-fit'>
               Submit Request
             </CustomButton>
           </div>
@@ -39,10 +36,8 @@ const GetStartedSection = () => {
               </p>
             </div>
             <CustomButton
-              bgColor={"transparent"}
-              color={colors.blue100}
               onClick={() => router.push("/vendors#register")}
-              className='font-bold border border-blue100 text-blue100 px-6 py-3 text-base hover:bg-blue100 hover:text-white transition-all w-fit'>
+              className='text-blue100 bg-transparent hover:bg-yellow700 hover:border-yellow700 hover:text-black font-bold border border-blue100 px-6 py-3 rounded-xl text-basehover:text-white transition-all w-fit'>
               Join Now
             </CustomButton>
           </div>

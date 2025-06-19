@@ -1,9 +1,9 @@
 import React from "react";
 import Image from "next/image";
 import CustomButton from "../../atoms/CustomButton";
-import { colors } from "@/constants/colors";
 import Divider from "../../atoms/Divider";
 import { useRouter } from "next/router";
+import { FaAngleRight } from "react-icons/fa6";
 
 const PersonalizedAssistanceSection = () => {
   const router = useRouter();
@@ -47,14 +47,10 @@ const PersonalizedAssistanceSection = () => {
               <Divider thick={1} margin='10px 0 0 0' />
             </ul>
             <CustomButton
-              bgColor={colors.yellow700}
-              color='#232323'
               onClick={() => router.push("/home#how-it-works")}
-              className='font-bold px-6 py-3 text-base mt-2 hover:opacity-90 transition-all'>
+              className='text-textGray bg-yellow700 hover:text-white rounded-xl font-bold px-6 py-3 text-base mt-2 hover:opacity-90 transition-all'>
               LEARN MORE
-              <svg className='ml-2' width='18' height='18' fill='none' viewBox='0 0 18 18'>
-                <path d='M7 13l5-4-5-4' stroke='#232323' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round' />
-              </svg>
+              <FaAngleRight className='mb-[2px]' />
             </CustomButton>
           </div>
         </div>

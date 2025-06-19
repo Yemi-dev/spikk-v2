@@ -1,4 +1,3 @@
-import { colors } from "@/constants/colors";
 import React from "react";
 
 interface CustomButtonProps {
@@ -42,10 +41,10 @@ const CustomButton: React.FC<CustomButtonProps> = ({
         gap: "16px",
         padding: padding || "10px 16px",
         margin: margin || 0,
-        color: color || colors.black,
+        color: color,
         // background: background || "linear-gradient(180deg, #55185D 0%, #290849 100%)",
-        backgroundColor: bgColor || colors.green,
-        borderRadius: borderRadius || "10px",
+        backgroundColor: bgColor,
+        borderRadius: borderRadius,
       }}
       type={type || "button"}
       className={className}

@@ -1,8 +1,10 @@
 import React from "react";
 import Image from "next/image";
 import CustomButton from "../../atoms/CustomButton";
-import { colors } from "@/constants/colors";
 import { useRouter } from "next/router";
+import { FaAngleRight } from "react-icons/fa6";
+import Divider from "@/ui/atoms/Divider";
+import { colors } from "@/constants/colors";
 
 const features = [
   {
@@ -55,32 +57,29 @@ const MarketplaceTransparencySection = () => {
               </div>
             </div>
             {/* Text Content */}
-            <div className={`${idx === 1 && "ml-6 px-2"}  px-6 flex-1 flex flex-col items-start md:items-start w-full max-w-xl`}>
-              <h2 className='text-black text-3xl md:text-4xl font-bold mb-4 leading-tight'>{feature.title}</h2>
+            <div
+              className={`${
+                idx === 1 && "ml-6 px-2"
+              }  px-6 flex-1 flex flex-col items-start md:items-start w-full max-w-xl`}>
+              <h2 className='text-black text-3xl md:text-4xl lg:text-5xl font-bold mb-8 leading-tight'>{feature.title}</h2>
               <p className='text-textGray text-base md:text-lg mb-8 max-w-[550px] font-medium'>{feature.description}</p>
               <ul className='mb-8 space-y-4 w-full'>
                 {feature.bullets.map((bullet, i) => (
-                  <li key={i} className='flex items-center gap-3 text-base md:text-lg font-medium'>
-                    <Image src='/images/svg/Check.svg' alt='Check' width={22} height={22} className='min-w-[22px]' />
-                    <span className='text-black'>{bullet}</span>
-                  </li>
+                  <>
+                    <Divider thick={1} margin={"10px 0 0 0"} color={colors.gray200} />
+                    <li key={i} className='flex items-center gap-3 text-base md:text-lg font-medium'>
+                      <Image src='/images/svg/Check.svg' alt='Check' width={22} height={22} className='min-w-[22px]' />
+                      <span className='text-black'>{bullet}</span>
+                    </li>
+                  </>
                 ))}
+                <Divider thick={1} margin={"10px 0 0 0"} color={colors.gray200} />
               </ul>
               <CustomButton
-                bgColor={colors.yellow700}
-                color='#232323'
                 onClick={() => router.push("/home#how-it-works")}
-                className='font-bold px-6 py-3 text-base mt-2 hover:opacity-90 transition-all'>
+                className='text-textGray bg-yellow700 hover:text-white rounded-xl font-bold px-6 py-3 text-base mt-2 hover:opacity-90 transition-all'>
                 LEARN MORE
-                <svg className='ml-2' width='18' height='18' fill='none' viewBox='0 0 18 18'>
-                  <path
-                    d='M7 13l5-4-5-4'
-                    stroke='#232323'
-                    strokeWidth='2'
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                  />
-                </svg>
+                <FaAngleRight className='mb-[2px]' />
               </CustomButton>
             </div>
           </div>

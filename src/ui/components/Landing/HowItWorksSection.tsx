@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 
 const steps = [
@@ -25,6 +25,15 @@ const steps = [
 ];
 
 const HowItWorksSection = () => {
+  const [activeStepCount, setActiveStepCount] = useState(1);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveStepCount((prev) => (prev < steps.length ? prev + 1 : 1));
+    }, 2000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <section id='how-it-works' className='w-full bg-[#f3f7f9] py-20 flex flex-col items-center px-4'>
       {/* Pill */}
@@ -43,24 +52,35 @@ const HowItWorksSection = () => {
       <div className='flex flex-col md:flex-row items-center justify-center w-full max-w-6xl gap-10 md:gap-0 mb-12'>
         {/* Left Steps */}
         <div className='flex flex-col gap-10 flex-1 max-w-xs md:items-end w-full'>
-          {steps.slice(0, 2).map((step, index) => (
-            <div key={step.number} className='flex flex-col items-end text-right'>
-              <div className='flex flex-col items-end mb-2'>
-                <span
-                  className={` ${
-                    index === 0 ? "text-yellow700 bg-black" : "text-black bg-white border border-gray300"
-                  } rounded-lg w-8 h-8 flex items-center justify-center font-bold text-lg`}>
-                  {step.number}
-                </span>
-                <span className={`${index === 0 ? "font-black text-black" : "font-medium text-black600"} text-lg`}>
-                  {step.title}
-                </span>
+          {steps.slice(0, 2).map((step, index) => {
+            const isActive = index < activeStepCount;
+            return (
+              <div key={step.number} className='flex flex-col items-end text-right'>
+                <div className='flex flex-col items-end mb-2'>
+                  <span
+                    className={` ${
+                      isActive ? "text-yellow700 bg-black" : "text-black bg-white border border-gray300"
+                    } rounded-lg w-8 h-8 flex items-center justify-center font-bold text-lg transition-all duration-500 ease-in-out transform ${
+                      isActive ? "scale-110 shadow-lg" : ""
+                    }`}>
+                    {step.number}
+                  </span>
+                  <span
+                    className={`${
+                      isActive ? "font-black text-black" : "font-medium text-black600"
+                    } text-lg transition-all duration-500 ease-in-out`}>
+                    {step.title}
+                  </span>
+                </div>
+                <p
+                  className={`${
+                    isActive ? "text-black font-medium" : "text-gray400"
+                  } text-base max-w-[260px] transition-all duration-500 ease-in-out`}>
+                  {step.description}
+                </p>
               </div>
-              <p className={`${index === 0 ? "text-black font-medium" : "text-gray400"} text-base max-w-[260px]`}>
-                {step.description}
-              </p>
-            </div>
-          ))}
+            );
+          })}
         </div>
         {/* Phones */}
         <div className='flex flex-row items-center justify-center gap-[-40px] relative z-10 md:mx-10'>
@@ -88,25 +108,52 @@ const HowItWorksSection = () => {
         </div>
         {/* Right Steps */}
         <div className='flex flex-col gap-10 flex-1 max-w-xs md:items-start w-full'>
-          {steps.slice(2).map((step) => (
-            <div key={step.number} className='flex flex-col items-start text-left'>
-              <div className='flex flex-col items-start mb-2'>
-                <span className='text-black bg-white border border-gray300 rounded-lg w-8 h-8 flex items-center justify-center font-bold text-lg'>
-                  {step.number}
-                </span>
-                <span className='font-medium text-lg text-black600'>{step.title}</span>
+          {steps.slice(2).map((step, idx) => {
+            const index = idx + 2;
+            const isActive = index < activeStepCount;
+            return (
+              <div key={step.number} className='flex flex-col items-start text-left'>
+                <div className='flex flex-col items-start mb-2'>
+                  <span
+                    className={` ${
+                      isActive ? "bg-black text-yellow700 border-none" : "text-black bg-white border border-gray300 "
+                    } rounded-lg w-8 h-8 flex items-center justify-center font-bold text-lg transition-all duration-500 ease-in-out transform ${
+                      isActive ? "scale-110 shadow-lg" : ""
+                    }`}>
+                    {step.number}
+                  </span>
+                  <span
+                    className={`${
+                      isActive ? "font-black text-black" : "font-medium text-black600"
+                    } text-lg transition-all duration-500 ease-in-out`}>
+                    {step.title}
+                  </span>
+                </div>
+                <p
+                  className={`${
+                    isActive ? "text-black font-medium" : "text-gray400"
+                  } text-base max-w-[260px] transition-all duration-500 ease-in-out`}>
+                  {step.description}
+                </p>
               </div>
-              <p className={`text-gray400 text-base max-w-[260px]`}>{step.description}</p>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
       {/* App Store Badges */}
       <div className='flex flex-row gap-4 mb-12'>
-        <a href='https://apps.apple.com/ng/app/spikk/id1619072479' target='_blank' rel='noopener noreferrer'>
+        <a
+          className='hover:opacity-80 transition-all duration-200 ease-in-out'
+          href='https://apps.apple.com/ng/app/spikk/id1619072479'
+          target='_blank'
+          rel='noopener noreferrer'>
           <Image src='/images/svg/Appstore.svg' alt='Download on the App Store' width={160} height={50} />
         </a>
-        <a href='https://play.google.com/store/apps/details?id=com.spikk' target='_blank' rel='noopener noreferrer'>
+        <a
+          className='hover:opacity-80 transition-all duration-200 ease-in-out'
+          href='https://play.google.com/store/apps/details?id=com.spikk'
+          target='_blank'
+          rel='noopener noreferrer'>
           <Image src='/images/svg/Playstore.svg' alt='Get it on Google Play' width={180} height={50} />
         </a>
       </div>

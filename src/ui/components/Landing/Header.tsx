@@ -2,7 +2,6 @@ import React, { JSX } from "react";
 import { useRouter } from "next/router";
 import CustomButton from "../../atoms/CustomButton";
 import { FaAngleRight } from "react-icons/fa6";
-import { colors } from "@/constants/colors";
 import SpikkLogo from "@/ui/atoms/SpikkLogo";
 
 const Header = (): JSX.Element => {
@@ -21,8 +20,7 @@ const Header = (): JSX.Element => {
               router.push("/home");
             }}
             padding='10px 1.5rem'
-            bgColor={colors.yellow700}
-            className='block font-semibold bg-yellow700 text-black xs:text-xs'>
+            className='block font-semibold bg-yellow700 text-black xs:text-xs rounded-xl hover:text-white transition-all duration-200 ease-in-out'>
             REQUEST ERRAND <FaAngleRight />
           </CustomButton>
         </ul>

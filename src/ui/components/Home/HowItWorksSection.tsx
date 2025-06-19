@@ -1,7 +1,6 @@
 import React from "react";
 import Image from "next/image";
 import CustomButton from "@/ui/atoms/CustomButton";
-import { colors } from "@/constants/colors";
 import { useRouter } from "next/router";
 
 const steps = [
@@ -103,10 +102,9 @@ const HowItWorksSection = () => {
       </div>
       <div className='my-10'>
         <CustomButton
-          bgColor={colors.yellow700}
           onClick={() => router.push("/vendors#register")}
           padding='12px 0'
-          className='font-bold w-[300px] text-[20px]'>
+          className='font-bold w-[300px] rounded-xl text-[20px] text-black bg-yellow700 hover:text-white transition-all duration-200 ease-in-out'>
           LET&apos;S GET STARTED
         </CustomButton>
       </div>

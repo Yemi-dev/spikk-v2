@@ -22,7 +22,7 @@ const Hero = ({ isHome }: { isHome?: boolean }) => {
     {
       stat: 190,
       name: "Abdul Yusuf",
-      bgImage: "/images/png/Transparency.png",
+      bgImage: "/images/png/HeroRight2.png",
       stars: 3.5,
       occupation: "Picker",
       avi: "/images/png/HeroRight.png",
@@ -33,7 +33,7 @@ const Hero = ({ isHome }: { isHome?: boolean }) => {
     {
       stat: 230,
       name: "Shammah Yusuf",
-      bgImage: "/images/png/Marketplace.png",
+      bgImage: "/images/png/HeroRight3.png",
       stars: 4.8,
       occupation: "Picker",
       avi: "/images/png/HeroRight.png",
@@ -69,14 +69,19 @@ const Hero = ({ isHome }: { isHome?: boolean }) => {
           {templateData.map((data, index) => (
             <div
               key={index}
-              className={`w-full flex flex-col lg:flex-row items-center justify-center gap-8 transition-opacity duration-500 ${
-                activeSlide === index ? "opacity-100" : "opacity-0 hidden"
-              }`}>
+              className={`w-full flex flex-col lg:flex-row items-center justify-center gap-8 transition-opacity duration-700 ease-in-out
+                ${
+                  activeSlide === index
+                    ? "opacity-100 relative z-10 pointer-events-auto"
+                    : "opacity-0 absolute top-0 left-0 w-full pointer-events-none z-0"
+                }
+              `}
+              style={{ minHeight: 600 }}>
               <div className='w-full lg:w-1/2 text-center lg:text-left lg:pt-14 px-4 py-14'>
-                <h1 className='hero-title text-4xl lg:text-5xl xl:text-[84px] font-semibold leading-tight lg:leading-[1.2] max-w-[600px] mx-auto lg:mx-0'>
+                <h1 className='hero-title text-4xl lg:text-5xl xl:text-[84px] font-bold leading-tight lg:leading-[1] max-w-[600px] text-black mx-auto lg:mx-0 transition-opacity duration-700 ease-in-out'>
                   {data.text1}
                 </h1>
-                <h1 className='hero-title text-4xl lg:text-5xl xl:text-[84px] font-semibold leading-tight lg:leading-[1.2] flex items-center justify-center lg:justify-start gap-2 max-w-[600px] mx-auto lg:mx-0'>
+                <h1 className='hero-title text-4xl lg:text-5xl xl:text-[84px] font-bold leading-tight lg:leading-[1] flex items-center justify-center lg:justify-start gap-2 max-w-[600px] mx-auto lg:mx-0 transition-opacity text-black duration-700 ease-in-out'>
                   {data.text2}{" "}
                   <span className='hero-title-bold'>
                     <Image
@@ -84,31 +89,45 @@ const Hero = ({ isHome }: { isHome?: boolean }) => {
                       alt='hero4'
                       width={136}
                       height={40}
-                      className='w-[136px] h-[40px] xs:w-[100px] xs:h-[30px]'
+                      className='w-[136px] h-[40px] xs:w-[100px] xs:h-[30px] transition-opacity duration-700 ease-in-out'
                     />
                   </span>{" "}
                 </h1>
-                <h1 className='hero-title text-4xl lg:text-5xl xl:text-[84px] font-semibold leading-tight lg:leading-[1.2] max-w-[600px] mx-auto lg:mx-0'>
+                <h1 className='hero-title text-black text-4xl lg:text-5xl xl:text-[84px] font-bold leading-tight lg:leading-[1] max-w-[600px] mx-auto lg:mx-0 transition-opacity duration-700 ease-in-out'>
                   {data.text3}
                 </h1>
-                <p className='mt-4 max-w-[600px] mx-auto lg:mx-0'>
+                <p className='mt-4 max-w-[600px] text-textGray font-medium text-[18px] mx-auto lg:mx-0 transition-opacity duration-700 ease-in-out'>
                   Spikk simplifies your life by handling shopping, pickups, and deliveries with unmatched precision and
                   care.
                 </p>
-                <div className='flex flex-col sm:flex-col-reverse lg:flex-row gap-4 items-center justify-center lg:justify-start mt-6'>
+                <div className='flex flex-col sm:flex-col-reverse lg:flex-row gap-4 items-center justify-center lg:justify-start mt-6 transition-opacity duration-700 ease-in-out'>
                   <CustomButton
                     onClick={() => handleNavigate(!isHome ? "/home" : "/vendors#register")}
                     bgColor={colors.yellow700}
-                    className='w-[300px] font-semibold whitespace-nowrap'>
-                    {isHome ? "START YOUR ERRAND NOW" : "REQUEST ERRAND"} <FaAngleRight />
+                    padding={isHome ? "10px 20px" : "10px 20px"}
+                    className='font-semibold whitespace-nowrap text-black rounded-xl hover:text-white transition-all duration-200 ease-in-out'>
+                    {isHome ? (
+                      <>START YOUR ERRAND NOW</>
+                    ) : (
+                      <>
+                        REQUEST ERRAND <FaAngleRight />
+                      </>
+                    )}
                   </CustomButton>
                   <CustomButton
                     onClick={() => handleNavigate("/vendors#register")}
                     bgColor={"transparent"}
                     color={colors.blue100}
+                    padding={isHome ? "10px 20px" : "10px 20px"}
                     borderRadius={`rounded-[40px]`}
-                    className='w-[300px] font-semibold whitespace-nowrap'>
-                    {isHome ? "JOIN AS A VENDOR/PARTNER" : "BECOME A VENDOR"} <FaAngleRight />
+                    className='font-semibold whitespace-nowrap rounded-xl hover:border hover:border-blue100 transition-all duration-200 ease-in-out'>
+                    {isHome ? (
+                      <>JOIN AS A VENDOR/PARTNER</>
+                    ) : (
+                      <>
+                        BECOME A VENDOR <FaAngleRight />
+                      </>
+                    )}
                   </CustomButton>
                 </div>
               </div>
@@ -124,11 +143,11 @@ const Hero = ({ isHome }: { isHome?: boolean }) => {
                     placeholder='blur'
                     blurDataURL='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=='
                     unoptimized
-                    className='w-full h-auto aspect-square object-cover rounded-[40px]'
+                    className='w-full h-auto aspect-square object-cover rounded-[40px] transition-opacity duration-700 ease-in-out'
                   />
 
                   {/* Top left stats card */}
-                  <div className='absolute top-6 left-4 lg:left-[30px] bg-white px-4 py-2 rounded-lg shadow-md w-[150px]'>
+                  <div className='absolute top-6 left-4 lg:left-[30px] bg-white px-4 py-2 rounded-lg shadow-md w-[150px] transition-opacity duration-700 ease-in-out'>
                     <div className='flex flex-col gap-2 text-sm'>
                       <div className='flex items-center gap-2'>
                         <span className='p-1 bg-black rounded-md text-white font-light'>{data.stat}</span>
@@ -138,7 +157,7 @@ const Hero = ({ isHome }: { isHome?: boolean }) => {
                   </div>
 
                   {/* Bottom card */}
-                  <div className='absolute bottom-8 left-1/2 -translate-x-1/2 bg-white p-4 rounded-lg shadow-md w-[90%] max-w-[400px]'>
+                  <div className='absolute bottom-8 left-1/2 -translate-x-1/2 bg-white p-4 rounded-lg shadow-md w-[90%] max-w-[400px] transition-opacity duration-700 ease-in-out'>
                     <div className='flex items-center justify-between gap-4'>
                       <div className='flex items-center gap-4'>
                         <div className='flex flex-col items-center'>
@@ -147,7 +166,7 @@ const Hero = ({ isHome }: { isHome?: boolean }) => {
                             alt='Rider Avatar'
                             width={50}
                             height={50}
-                            className='rounded-full border border-gray200'
+                            className='rounded-full border border-gray200 transition-opacity duration-700 ease-in-out'
                           />
                           <div className='flex gap-1 border border-gray200 rounded-full py-[2px] px-3 mt-[-4px] bg-white text-[10px]'>
                             <p>{data.stars}</p>

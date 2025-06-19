@@ -1,7 +1,6 @@
 import React from "react";
 import Image from "next/image";
 import CustomButton from "@/ui/atoms/CustomButton";
-import { colors } from "@/constants/colors";
 import ContactForm from "./ContactForm";
 import { useRouter } from "next/router";
 
@@ -62,10 +61,8 @@ const VendorsLandingSection = () => {
           </p>
           <div>
             <CustomButton
-              bgColor={colors.textYellow}
-              color={colors.textDark}
               onClick={() => router.push("/vendors#register")}
-              className='font-semibold text-base px-6 py-3 mt-2 hover:opacity-90 transition-all shadow rounded-lg'
+              className='font-semibold text-textBlack bg-yellow700 hover:text-white text-base px-6 py-3 mt-2 hover:opacity-90 transition-all shadow rounded-xl'
               borderRadius='8px'>
               REGISTER NOW
             </CustomButton>
@@ -75,7 +72,9 @@ const VendorsLandingSection = () => {
 
       {/* Why Partner Section */}
       <div className='w-full flex flex-col items-center gap-10 mt-[100px]'>
-        <h2 className='text-2xl md:text-3xl xs:text-2xl font-bold text-textDark text-center'>WHY PARTNER WITH SPIKK?</h2>
+        <h2 className='text-2xl md:text-3xl xs:text-2xl font-bold text-textDark text-center'>
+          WHY PARTNER WITH SPIKK?
+        </h2>
         <p className='text-base md:text-lg text-textGray text-center max-w-2xl mb-4'>
           By partnering with us, you gain access to a wider market, simplified order management, and a trusted system
           that puts your business first.
