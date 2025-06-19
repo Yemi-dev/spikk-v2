@@ -1,9 +1,9 @@
-import Image from "next/image";
 import React, { useState } from "react";
 import { useRouter } from "next/router";
 import { FiShoppingBag, FiMenu, FiX } from "react-icons/fi";
 import routes from "@/constants/routes";
 import { useCart } from "@/hooks/cart.hook";
+import SpikkLogo from "@/ui/atoms/SpikkLogo";
 
 const HomeHeader = () => {
   const router = useRouter();
@@ -19,7 +19,7 @@ const HomeHeader = () => {
       <div className='max-w-[1400px] mx-auto flex items-center justify-between px-8 sm:px-4 py-5'>
         {/* Logo */}
         <button onClick={() => router.push("/")} className='flex items-center cursor-pointer'>
-          <Image src='/images/svg/Spikk-logo.svg' alt='Spikk Logo' width={65} height={25} priority />
+          <SpikkLogo />
         </button>
 
         {/* Desktop Nav */}

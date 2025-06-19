@@ -25,7 +25,13 @@ const HomeFooter = () => {
       <div className='max-w-[1300px] mx-auto flex flex-col md:flex-row md:justify-between items-center md:items-start gap-12 md:gap-0'>
         {/* Logo */}
         <div className='flex-1 flex flex-col items-center md:items-start justify-start min-w-[180px]'>
-          <Image src='/images/svg/SpikkFooterLogo.svg' alt='Spikk Logo' width={165} height={65} className='mb-2' />
+          <Image
+            src='/images/svg/SpikkFooterLogo.svg'
+            alt='Spikk Logo'
+            width={165}
+            height={65}
+            className='mb-2 sm:w-[120px] sm:h-[45px]'
+          />
         </div>
 
         {/* QuickLinks */}

@@ -106,7 +106,7 @@ const ContactForm = () => {
           </form>
         </div>
         <div className='flex-1'>
-          <div className='w-[400px] h-[270px] md:w-[500px] md:h-[270px] lg:w-[500px] lg:h-[270px] rounded-xl overflow-hidden'>
+          <div className='w-[300px] h-[200px] md:w-[500px] md:h-[270px] lg:w-[500px] lg:h-[270px] rounded-xl overflow-hidden'>
             <Image
               src='/images/png/ContactRight.png'
               alt='Business partnership'

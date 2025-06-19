@@ -23,7 +23,9 @@ const Brand = () => {
               alt='brand'
               width={size}
               height={20}
+              quality={100}
               layout='fixed'
+              unoptimized
               className={`${index > 3 && "sm:hidden"}`}
             />
           ))}

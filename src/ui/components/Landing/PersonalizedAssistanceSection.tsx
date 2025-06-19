@@ -23,7 +23,7 @@ const PersonalizedAssistanceSection = () => {
         </p>
       </div>
 
-      <div className='flex xlg:flex-col gap-10 items-center justify-center w-full'>
+      <div className='flex xlg:flex-col-reverse gap-10 items-center justify-center w-full'>
         {/* Left Content */}
         <div className='flex-1 max-w-xl flex justify-center items-center text-left mb-10 md:mb-0'>
           <div className='mb-8'>
