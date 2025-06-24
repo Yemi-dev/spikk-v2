@@ -1,0 +1,5 @@
+[[redirects]]
+  from = "https://spikk.co/*"
+  to = "https://www.spikk.co/:splat"
+  status = 301
+  force = true

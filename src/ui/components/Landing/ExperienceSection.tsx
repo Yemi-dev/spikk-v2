@@ -18,7 +18,7 @@ const ExperienceSection = () => {
       </h2>
       {/* Phone Images */}
       <div className='w-full overflow-x-auto scrollbar-hide'>
-        <div className='flex flex-row gap-6 justify-start items-center mb-10 min-w-max px-4 md:justify-center'>
+        <div className='flex flex-row gap-3 justify-start items-center mb-10 min-w-max px-4 md:justify-center'>
           <Image
             src='/images/svg/iPhone1.svg'
             alt='Shop Anything'
