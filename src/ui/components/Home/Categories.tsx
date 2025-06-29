@@ -1,14 +1,14 @@
-// import { useGetAllCategories } from "@/hooks/marketplace.hook";
-// import { useRouter } from "next/router";
+import { useGetAllCategories } from "@/hooks/marketplace.hook";
+import { useRouter } from "next/router";
 import Image from "next/image";
 import React from "react";
-// import CategoriesSkeleton from "./CategoriesLoader";
-// import Link from "next/link";
+import CategoriesSkeleton from "./CategoriesLoader";
+import Link from "next/link";
 
 const Categories = () => {
-  // const { data: categoriesData, isLoading } = useGetAllCategories();
-  // const router = useRouter();
-  // const categories = categoriesData?.data?.data?.categories || [];
+  const { data: categoriesData, isLoading } = useGetAllCategories();
+  const router = useRouter();
+  const categories = categoriesData?.data?.data?.categories || [];
 
   //   {
   //     image: "/images/svg/groceries.svg",
@@ -79,7 +79,7 @@ const Categories = () => {
         </div>
       </div>
       {/* Categories Section */}
-      {/* <div className='w-full flex flex-col items-center mt-6'>
+      <div className='w-full flex flex-col items-center mt-6'>
         <h2 className='text-2xl md:text-3xl font-bold text-black mb-8 text-center'>SHOP WITH CATEGORIES</h2>
         {isLoading ? (
           <CategoriesSkeleton />
@@ -111,7 +111,7 @@ const Categories = () => {
           className='mt-8 text-blue100 text-base font-semibold flex items-center gap-2 hover:underline'>
           GO TO MARKETPLACE <span className='text-lg'>→</span>
         </Link>
-      </div> */}
+      </div>
     </section>
   );
 };
