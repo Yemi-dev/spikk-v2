@@ -1,7 +1,7 @@
 import CustomButton from "@/ui/atoms/CustomButton";
 import CustomTextInput from "@/ui/atoms/inputs/CustomTextField";
 import Image from "next/image";
-import React, { useEffect } from "react";
+import React from "react";
 import { MdClose } from "react-icons/md";
 import CustomTextArea from "@/ui/atoms/inputs/CustomTextArea";
 import { useCart } from "@/hooks/cart.hook";
@@ -68,11 +68,12 @@ const CartInfo = () => {
     },
     enableReinitialize: true,
     validationSchema,
-    onSubmit: () => {
+    onSubmit: (values) => {
       // Handle form submission
-      // console.log(values);
+      console.log(values);
     },
   });
+
 
   // Handlers
   const handleQuantity = (id: string, delta: number) => {
@@ -92,18 +93,17 @@ const CartInfo = () => {
     resetCart();
   };
 
-  // console.log(cartItems);
-
-  useEffect(() => {
-    const fetchCoordinates = async () => {
+  // Handle coordinate fetching on address blur
+  const handleAddressBlur = async (e: React.FocusEvent<HTMLDivElement>) => {
+    const address = formik.values.drop_off_address;
+    if (address) {
       try {
         const response = await fetch(
-          `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
-            formik.values.drop_off_address
-          )}&key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}`
+          `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${
+            process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
+          }`
         );
         const data = await response.json();
-        // console.log(data);
         if (data.results && data.results[0]) {
           const { lat, lng } = data.results[0].geometry.location;
           formik.setFieldValue("drop_off_coordinates", [lng, lat]);
@@ -111,12 +111,12 @@ const CartInfo = () => {
       } catch (error) {
         console.error("Error fetching coordinates:", error);
       }
-    };
-
-    if (formik.values.drop_off_address) {
-      fetchCoordinates();
     }
-  }, [formik.values.drop_off_address, formik]);
+    // Call the original onBlur handler
+    formik.handleBlur(e);
+  };
+
+  // console.log(cartItems);
 
   return (
     <section>
@@ -239,7 +239,7 @@ const CartInfo = () => {
                   placeholder='Delivery Address'
                   value={formik.values.drop_off_address}
                   onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
+                  onBlur={handleAddressBlur}
                   className='w-full text-gray900 text-sm'
                   label='Delivery Address'
                   errorMessage={formik.touched.drop_off_address && formik.errors.drop_off_address}
@@ -277,7 +277,7 @@ const CartInfo = () => {
                   placeholder='Address'
                   value={formik.values.drop_off_address}
                   onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
+                  onBlur={handleAddressBlur}
                   className='w-full text-gray900 text-sm'
                   label='Address'
                   errorMessage={formik.touched.drop_off_address && formik.errors.drop_off_address}

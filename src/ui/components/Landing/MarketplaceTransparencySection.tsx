@@ -59,10 +59,10 @@ const MarketplaceTransparencySection = () => {
             {/* Text Content */}
             <div
               className={`${
-                idx === 1 && "ml-6 px-2"
-              }  px-6 flex-1 flex flex-col items-start md:items-start w-full max-w-xl`}>
+                idx === 1 && "md:ml-6 md:px-2"
+              }  md:px-6 flex-1 flex flex-col items-start md:items-start w-full max-w-xl`}>
               <h2 className='text-black text-3xl md:text-4xl lg:text-5xl font-bold mb-8 leading-tight'>{feature.title}</h2>
-              <p className='text-textGray text-base md:text-lg mb-8 max-w-[550px] font-medium'>{feature.description}</p>
+              <p className='text-textGray text-base md:text-lg md:mb-8 max-w-[550px] font-medium'>{feature.description}</p>
               <ul className='mb-8 space-y-4 w-full'>
                 {feature.bullets.map((bullet, i) => (
                   <>

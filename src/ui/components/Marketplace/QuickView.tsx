@@ -37,6 +37,7 @@ const QuickView = ({
   };
 
   const isAlreadyInCart = cartItems.some((item) => item.id === viewProduct.id);
+  const calculatedPrice = Number(viewProduct.price) * quantity;
 
   return (
     <CenterModal
@@ -73,7 +74,7 @@ const QuickView = ({
         {/* Right: Product Info */}
         <div className='flex-[2] flex flex-col gap-2 relative'>
           <h2 className='text-2xl md:text-3xl font-bold text-soft300 mb-1 mt-2 md:mt-0'>{viewProduct.name}</h2>
-          <span className='text-blue100 text-lg font-semibold mb-4'>{formatPrice(Number(viewProduct.price))}</span>
+          <span className='text-blue100 text-lg font-semibold mb-4'>{formatPrice(calculatedPrice)}</span>
           <div className='mb-6'>
             <label className='block text-soft300 mb-2 font-medium'>How many quantity do you want?</label>
             <input

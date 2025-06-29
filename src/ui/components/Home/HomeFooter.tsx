@@ -51,8 +51,8 @@ const HomeFooter = () => {
         {/* Lets chat */}
         <div className='flex-1 flex flex-col items-center md:items-end gap-2 min-w-[220px]'>
           <h4 className='text-lg font-medium mb-2 text-white'>Lets chat!</h4>
-          <a href='mailto:spikk@email.com' className='text-gray300 hover:text-white text-base mb-1 transition'>
-            spikk@email.com
+          <a href='mailto:hi@spikk.co' className='text-gray300 hover:text-white text-base mb-1 transition'>
+            hi@spikk.co
           </a>
           <a href='tel:090123456789' className='text-gray300 hover:text-white text-base mb-3 transition'>
             090123456789
@@ -81,7 +81,7 @@ const HomeFooter = () => {
         <Link href='/privacy-policy' className='hover:text-white transition mb-2 md:mb-0'>
           Privacy Policy
         </Link>
-        <span className='text-soft400'>Copyright © {new Date().getFullYear()} Buimas</span>
+        <span className='text-soft400'>Copyright © {new Date().getFullYear()} Spikk Technologies</span>
       </div>
     </footer>
   );
