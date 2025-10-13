@@ -257,7 +257,7 @@ const Track = () => {
                 <div className='flex-1'>
                   <h3 className='font-semibold text-gray900 text-sm mb-1'>{item.name}</h3>
                   <p className='text-xs text-gray600 mb-2'>Quantity: {item.quantity}</p>
-                  <p className='font-bold text-gray900'>{formatPrice(item.price * item.quantity)}</p>
+                  <p className='font-bold text-gray900'>{formatPrice(item?.price * item.quantity)}</p>
                 </div>
               </div>
             ))}

@@ -9,7 +9,6 @@ import QuickView from "./QuickView";
 import { formatPrice } from "@/utils";
 import ProductEmptyState from "../Shared/ProductEmptyState";
 import CategoriesSkeleton from "../Home/CategoriesLoader";
-import PageLoader from "@/ui/atoms/PageLoader";
 
 // Placeholder product and category data
 export type Product = {
@@ -20,21 +19,6 @@ export type Product = {
   category: string;
   description?: string;
 };
-
-// export const placeholderProducts: Product[] = Array.from({ length: 36 }).map((_, i) => ({
-//   id: String(i + 1),
-//   name: "5 Alive Pulpy Orange Fruit Drink 1000ml",
-//   image: "/images/png/5alive.png",
-//   price: "₦1,350.00",
-//   category: "Food and Drinks",
-// }));
-
-// export const placeholderCategories = [
-//   { label: "All", value: "All" },
-//   { label: "Food and Drinks", value: "Food and Drinks" },
-//   { label: "Snacks", value: "Snacks" },
-//   { label: "Household Essentials", value: "Household Essentials" },
-// ];
 
 const ProductGrid = ({
   products = [],
@@ -121,7 +105,7 @@ const ProductGrid = ({
                 onClick={() => setViewProduct(product)}
                 className='flex flex-col items-start justify-end bg-white border border-soft200 rounded-xl p-4 shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer min-h-[220px] hover:opacity-60'>
                 <Image
-                  src={product.image.trimEnd()}
+                  src={product?.image?.trimEnd() || ""}
                   alt={product.name}
                   width={150}
                   height={140}
@@ -131,7 +115,7 @@ const ProductGrid = ({
                   {product.name}
                 </span>
                 <span className='text-blue100 text-sm font-semibold mt-1 text-left'>
-                  {formatPrice(Number(product.price))}
+                  {formatPrice(Number(product?.price))}
                 </span>
               </button>
             ))}
@@ -154,7 +138,6 @@ const ProductGrid = ({
         </CustomButton>
       </div>
       {viewProduct && <QuickView viewProduct={viewProduct} setViewProduct={setViewProduct} />}
-      <PageLoader isLoading={isLoading} />
     </section>
   );
 };

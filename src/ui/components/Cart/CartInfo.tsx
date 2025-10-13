@@ -71,8 +71,8 @@ const CartInfo = () => {
       order_items: cartItems.map((item) => ({
         product_id: item.id,
         name: item.name,
-        price: item.price,
-        image: item.image,
+        price: item.price || 0,
+        image: item.image || "",
         quantity: item.quantity,
         isSpecial: false,
         type: "marketplace",
@@ -200,7 +200,7 @@ const CartInfo = () => {
                           <span className='text-sm text-black font-medium ml-2'>{item.name}</span>
                         </td>
                         <td className='py-4 text-sm font-medium text-gray700'>
-                          ₦{Number(item.price).toLocaleString()}
+                          ₦{Number(item?.price).toLocaleString()}
                         </td>
                         <td className='py-4'>
                           <div className='grid grid-cols-3 items-center rounded border border-gray200 w-fit'>
@@ -222,7 +222,7 @@ const CartInfo = () => {
                           </div>
                         </td>
                         <td className='py-4 text-sm font-semibold text-gray900'>
-                          ₦{(Number(item.price) * item.quantity).toLocaleString()}
+                          ₦{(Number(item?.price) * item.quantity).toLocaleString()}
                         </td>
                         <td></td>
                       </tr>
