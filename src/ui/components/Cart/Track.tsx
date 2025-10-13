@@ -4,8 +4,8 @@ import { MdCheckCircle, MdLocalShipping, MdHome, MdPhone, MdEmail, MdCancel } fr
 import { FaBox, FaClock } from "react-icons/fa";
 import { IoMdCheckmarkCircle } from "react-icons/io";
 import { sampleSuccessResponse, formatPrice } from "@/utils/index";
+import { safeLocalStorage } from "@/utils/storage";
 import CustomButton from "@/ui/atoms/CustomButton";
-import { toast } from "react-toastify";
 import usePageLoader from "@/hooks/usePageLoader";
 
 interface OrderStatus {
@@ -47,10 +47,19 @@ interface OrderData {
 
 const Track = () => {
   const [orderData, setOrderData] = useState<OrderData | null>(null);
+  const [isClient, setIsClient] = useState(false);
   const { setLoading } = usePageLoader();
+
+  // Ensure we're on the client side
   useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isClient) return;
+
     // Check if order data exists in localStorage (from successful order submission)
-    const storedOrder = localStorage.getItem("currentOrder");
+    const storedOrder = safeLocalStorage.getItem("currentOrder");
     if (storedOrder) {
       try {
         const parsedOrder = JSON.parse(storedOrder);
@@ -62,9 +71,9 @@ const Track = () => {
       }
     } else {
       // Fall back to sample data for testing
-      toast.error("No order data found");
+      setOrderData(sampleSuccessResponse as OrderData);
     }
-  }, []);
+  }, [isClient]);
 
   if (!orderData) {
     return (
@@ -349,7 +358,7 @@ const Track = () => {
         <CustomButton
           className='bg-white text-red border-2 border-red hover:bg-blue-50 px-8 py-3 rounded-lg font-semibold transition-all'
           onClick={() => {
-            localStorage.removeItem("currentOrder");
+            safeLocalStorage.removeItem("currentOrder");
             setLoading(true);
             window.location.href = "/home";
           }}>

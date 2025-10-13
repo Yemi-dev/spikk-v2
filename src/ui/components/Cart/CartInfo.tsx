@@ -11,6 +11,7 @@ import { useSendOrder } from "@/hooks/marketplace.hook";
 import { toast } from "react-toastify";
 import Link from "next/link";
 import usePageLoader from "@/hooks/usePageLoader";
+import { safeLocalStorage } from "@/utils/storage";
 
 export interface CartFormValues {
   note: string;
@@ -91,7 +92,8 @@ const CartInfo = () => {
         onSuccess: (data) => {
           resetCart();
           toast.success(data.data.message);
-          localStorage.setItem("currentOrder", JSON.stringify(data.data.data));
+          // Store order data safely
+          safeLocalStorage.setItem("currentOrder", JSON.stringify(data.data.data));
           setLoading(true);
           setTimeout(() => {
             window.location.href = "/cart/track-order";
@@ -120,12 +122,13 @@ const CartInfo = () => {
 
   const handleResetCart = () => {
     // formik.resetForm();
-    localStorage.removeItem("currentOrder");
+    safeLocalStorage.removeItem("currentOrder");
     resetCart();
   };
 
-  const currentOrder = localStorage.getItem("currentOrder");
-  const activeOrder = JSON.parse(currentOrder || "{}");
+  // Safely access localStorage
+  const currentOrder = safeLocalStorage.getItem("currentOrder");
+  const activeOrder = currentOrder ? JSON.parse(currentOrder) : {};
 
   // Handle coordinate fetching on address blur
   const handleAddressBlur = async (e: React.FocusEvent<HTMLDivElement>) => {

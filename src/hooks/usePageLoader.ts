@@ -11,10 +11,18 @@ interface UsePageLoaderReturn {
 export const usePageLoader = (): UsePageLoaderReturn => {
   const [isLoading, setIsLoading] = useState(false);
   const [loadingMessage, setLoadingMessage] = useState("");
+  const [isClient, setIsClient] = useState(false);
   const router = useRouter();
+
+  // Ensure we're on the client side
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   // Show loader on route changes
   useEffect(() => {
+    if (!isClient) return;
+
     const handleStart = (url: string) => {
       // Don't show loader for same page anchor links
       if (url.includes("#")) return;
@@ -36,14 +44,16 @@ export const usePageLoader = (): UsePageLoaderReturn => {
       router.events.off("routeChangeComplete", handleComplete);
       router.events.off("routeChangeError", handleComplete);
     };
-  }, [router]);
+  }, [router, isClient]);
 
   const setLoading = (loading: boolean) => {
-    setIsLoading(loading);
+    if (isClient) {
+      setIsLoading(loading);
+    }
   };
 
   return {
-    isLoading,
+    isLoading: isClient ? isLoading : false,
     setLoading,
     loadingMessage,
     setLoadingMessage,
