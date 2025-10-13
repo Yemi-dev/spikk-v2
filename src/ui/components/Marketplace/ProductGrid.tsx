@@ -20,21 +20,6 @@ export type Product = {
   description?: string;
 };
 
-// export const placeholderProducts: Product[] = Array.from({ length: 36 }).map((_, i) => ({
-//   id: String(i + 1),
-//   name: "5 Alive Pulpy Orange Fruit Drink 1000ml",
-//   image: "/images/png/5alive.png",
-//   price: "₦1,350.00",
-//   category: "Food and Drinks",
-// }));
-
-// export const placeholderCategories = [
-//   { label: "All", value: "All" },
-//   { label: "Food and Drinks", value: "Food and Drinks" },
-//   { label: "Snacks", value: "Snacks" },
-//   { label: "Household Essentials", value: "Household Essentials" },
-// ];
-
 const ProductGrid = ({
   products = [],
   categories = [],
@@ -44,6 +29,8 @@ const ProductGrid = ({
   search,
   setSearch,
   isLoading,
+  setSelectedCategory,
+  category,
   limit = 20,
 }: {
   products?: Product[];
@@ -54,19 +41,21 @@ const ProductGrid = ({
   search: string;
   setSearch: (search: string) => void;
   isLoading: boolean;
+  category?: string;
+  setSelectedCategory?: (category: string) => void;
   limit?: number;
 }) => {
-  const [category, setCategory] = useState("");
   const [viewProduct, setViewProduct] = useState<Product | null>(null);
-
   // Handlers
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
     setPage(1);
   };
   const handleCategoryChange = (val: string) => {
-    setCategory(val);
     setPage(1);
+    if (setSelectedCategory) {
+      setSelectedCategory(val);
+    }
   };
   const handlePageChange = (newPage: number) => {
     setPage(newPage);
@@ -109,14 +98,14 @@ const ProductGrid = ({
         <CategoriesSkeleton count={limit} />
       ) : (
         <>
-          <div className='w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4'>
-            {products.map((product) => (
+          <div className='w-full grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4'>
+            {products.map((product: Product) => (
               <button
                 key={product.id}
                 onClick={() => setViewProduct(product)}
                 className='flex flex-col items-start justify-end bg-white border border-soft200 rounded-xl p-4 shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer min-h-[220px] hover:opacity-60'>
                 <Image
-                  src={product.image.trimEnd()}
+                  src={product?.image?.trimEnd() || ""}
                   alt={product.name}
                   width={150}
                   height={140}
@@ -126,7 +115,7 @@ const ProductGrid = ({
                   {product.name}
                 </span>
                 <span className='text-blue100 text-sm font-semibold mt-1 text-left'>
-                  {formatPrice(Number(product.price))}
+                  {formatPrice(Number(product?.price))}
                 </span>
               </button>
             ))}
@@ -134,7 +123,7 @@ const ProductGrid = ({
         </>
       )}
       {/* Pagination */}
-      {totalPages > 1 && <Pagination currentPage={page} totalPages={totalPages} onPageChange={handlePageChange} />}
+      {<Pagination currentPage={page} totalPages={totalPages} onPageChange={handlePageChange} />}
 
       {/* Can't find section */}
       <div className='w-full flex flex-col items-center mt-16'>

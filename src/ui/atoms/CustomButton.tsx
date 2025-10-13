@@ -42,11 +42,13 @@ const CustomButton: React.FC<CustomButtonProps> = ({
         padding: padding || "10px 16px",
         margin: margin || 0,
         color: color,
+        opacity: isLoading ? 0.5 : 1,
         // background: background || "linear-gradient(180deg, #55185D 0%, #290849 100%)",
         backgroundColor: bgColor,
         borderRadius: borderRadius,
       }}
       type={type || "button"}
+      disabled={isLoading || disabled}
       className={className}
       onClick={handleClick}>
       {isLoading ? "Loading..." : children}

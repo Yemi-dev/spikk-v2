@@ -37,7 +37,7 @@ const QuickView = ({
   };
 
   const isAlreadyInCart = cartItems.some((item) => item.id === viewProduct.id);
-  const calculatedPrice = Number(viewProduct.price) * quantity;
+  const calculatedPrice = Number(viewProduct?.price) * quantity;
 
   return (
     <CenterModal
