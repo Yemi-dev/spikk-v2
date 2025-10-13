@@ -2,8 +2,12 @@ import React from "react";
 import HomeFooter from "@/ui/components/Home/HomeFooter";
 import HomeHeader from "@/ui/components/Home/HomeHeader";
 import CartInfo from "@/ui/components/Cart/CartInfo";
+import PageLoader from "@/ui/atoms/PageLoader";
+import usePageLoader from "@/hooks/usePageLoader";
 
 const Cart = () => {
+  const { isLoading } = usePageLoader();
+
   return (
     <div className='bg-white font-gilroy min-h-screen relative'>
       <HomeHeader />
@@ -12,6 +16,7 @@ const Cart = () => {
         <CartInfo />
       </main>
       <HomeFooter />
+      <PageLoader isLoading={isLoading}/>
     </div>
   );
 };

@@ -3,8 +3,12 @@ import HomeHeader from "@/ui/components/Home/HomeHeader";
 import React from "react";
 import MarketplaceLanding from "../../ui/components/Marketplace/MarketplaceLanding";
 import MarketplaceSEO from "@/ui/components/Marketplace/MarketplaceSEO";
+import PageLoader from "@/ui/atoms/PageLoader";
+import usePageLoader from "@/hooks/usePageLoader";
 
 const Marketplace = () => {
+  const { isLoading } = usePageLoader();
+
   return (
     <>
       <MarketplaceSEO />
@@ -14,6 +18,7 @@ const Marketplace = () => {
           <MarketplaceLanding />
         </main>
         <HomeFooter />
+        <PageLoader isLoading={isLoading} />
       </div>
     </>
   );

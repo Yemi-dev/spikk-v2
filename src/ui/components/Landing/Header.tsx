@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import CustomButton from "../../atoms/CustomButton";
 import { FaAngleRight } from "react-icons/fa6";
 import SpikkLogo from "@/ui/atoms/SpikkLogo";
+import { HiOutlineMenuAlt1 } from "react-icons/hi";
 
 const Header = (): JSX.Element => {
   const router = useRouter();
@@ -25,9 +26,9 @@ const Header = (): JSX.Element => {
           </CustomButton>
         </ul>
 
-        {/* <div className='relative md:hidden'>
+        <div className='relative md:hidden'>
           <HiOutlineMenuAlt1 className='md:hidden cursor-pointer text-textDark' size={25} />
-        </div> */}
+        </div>
       </div>
     </div>
   );

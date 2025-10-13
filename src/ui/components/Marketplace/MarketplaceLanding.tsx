@@ -35,6 +35,7 @@ const MarketplaceLanding = () => {
   const popularProducts = popularProductsData?.data?.data?.products || [];
   const productsLoading = isSpecialProductsLoading || isPopularProductsLoading;
   const allBannerProducts = [...specialProducts, ...popularProducts];
+  const [selectedCategory, setSelectedCategory] = useState("");
   const {
     data: marketplaceProductsData,
     isLoading: isMarketplaceProductsLoading,
@@ -45,6 +46,7 @@ const MarketplaceLanding = () => {
     pageSize: 40,
     search: search,
     name: "",
+    category: selectedCategory,
   });
   const marketplaceProducts = useMemo(
     () => marketplaceProductsData?.data?.data?.products || [],
@@ -178,6 +180,9 @@ const MarketplaceLanding = () => {
         products={marketplaceProducts}
         page={productsPage}
         setPage={setProductsPage}
+        setSelectedCategory={setSelectedCategory}
+        category={selectedCategory}
+        categories={categories.map((category: { name: string; id: string }) => ({ label: category.name, value: category.id }))}
         totalPages={marketplaceProductsTotalPages}
         search={search}
         setSearch={setSearch}

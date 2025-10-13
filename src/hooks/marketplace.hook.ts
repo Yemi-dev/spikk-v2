@@ -1,6 +1,7 @@
 import { useEffect } from "react";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axiosInstance from "@/constants/url";
+import { CartFormValues } from "@/ui/components/Cart/CartInfo";
 
 export function useGetAllCategories() {
   const queryClient = useQueryClient();
@@ -28,17 +29,19 @@ export function useGetAllMarketplaceProducts({
   pageSize,
   search = "",
   name = "",
+  category = "",
 }: {
   page: number;
   pageSize: number;
   search?: string;
   name?: string;
+  category?: string;
 }) {
   const queryClient = useQueryClient();
 
   const query = useQuery({
-    queryKey: ["marketplace-products", page, pageSize, search, name],
-    queryFn: () => axiosInstance.get(`/marketplace?page=${page}&pageSize=${pageSize}&search=${search}&name=${name}`),
+    queryKey: ["marketplace-products", page, pageSize, search, name, category],
+    queryFn: () => axiosInstance.get(`/marketplace/for-web?page=${page}&pageSize=${pageSize}&name=${search}&category=${category}`),
     placeholderData: (previousData) => previousData,
     refetchOnWindowFocus: false,
     staleTime: Infinity,
@@ -47,10 +50,10 @@ export function useGetAllMarketplaceProducts({
 
   useEffect(() => {
     queryClient.prefetchQuery({
-      queryKey: ["marketplace-products", page, pageSize, search, name],
-      queryFn: () => axiosInstance.get(`/marketplace?page=${page}&pageSize=${pageSize}&search=${search}&name=${name}`),
+      queryKey: ["marketplace-products", page, pageSize, search, name, category],
+      queryFn: () => axiosInstance.get(`/marketplace/for-web?page=${page}&pageSize=${pageSize}&name=${search}&category=${category}`),
     });
-  }, [queryClient, page, pageSize, search, name]);
+  }, [queryClient, page, pageSize, search, name, category]);
 
   return query;
 }
@@ -100,31 +103,39 @@ export function useGetAllPopularProducts() {
 
 export function useGetCategoryByRef(
   ref: string,
-  { page, pageSize, search = "" }: { page: number; pageSize: number; search?: string }
+  { page, pageSize, name = "", category = "" }: { page: number; pageSize: number; name?: string; category?: string },
+  options?: { enabled?: boolean }
 ) {
   const queryClient = useQueryClient();
 
   const query = useQuery({
-    queryKey: ["product-category", ref, page, pageSize, search],
+    queryKey: ["product-category", ref, page, pageSize, name, category],
     queryFn: () =>
-      axiosInstance.get(`/marketplace/product-by-category/${ref}?page=${page}&pageSize=${pageSize}&search=${search}`),
+      axiosInstance.get(
+        `/marketplace/product-by-category-web/${ref}?page=${page}&pageSize=${pageSize}&name=${name}&category=${category}`
+      ),
     placeholderData: (previousData) => previousData,
     refetchOnWindowFocus: false,
     staleTime: Infinity,
     gcTime: 1000 * 60 * 20,
+    enabled: options?.enabled ?? true,
   });
 
   useEffect(() => {
-    queryClient.prefetchQuery({
-      queryKey: ["product-category", ref, page, pageSize, search],
-      queryFn: () =>
-        axiosInstance.get(`/marketplace/product-by-category/${ref}?page=${page}&pageSize=${pageSize}&search=${search}`),
-    });
-  }, [queryClient, ref, page, pageSize, search]);
+    if (options?.enabled !== false) {
+      queryClient.prefetchQuery({
+        queryKey: ["product-category", ref, page, pageSize, name, category],
+        queryFn: () =>
+          axiosInstance.get(
+            `/marketplace/product-by-category-web/${ref}?page=${page}&pageSize=${pageSize}&name=${name}&category=${category}`
+          ),
+      });
+    }
+  }, [queryClient, ref, page, pageSize, name, options?.enabled]);
   return query;
 }
 
-export function useGetCategoryByID(id: string) {
+export function useGetCategoryByID(id: string, options?: { enabled?: boolean }) {
   const queryClient = useQueryClient();
 
   const query = useQuery({
@@ -134,15 +145,31 @@ export function useGetCategoryByID(id: string) {
     refetchOnWindowFocus: false,
     staleTime: Infinity,
     gcTime: 1000 * 60 * 20,
+    enabled: options?.enabled ?? true,
   });
 
   useEffect(() => {
-    queryClient.prefetchQuery({
-      queryKey: ["product-category", id],
-      queryFn: () => axiosInstance.get(`/product-category/${id}`),
-    });
-  }, [queryClient, id]);
+    if (options?.enabled !== false) {
+      queryClient.prefetchQuery({
+        queryKey: ["product-category", id],
+        queryFn: () => axiosInstance.get(`/product-category/${id}`),
+      });
+    }
+  }, [queryClient, id, options?.enabled]);
   return query;
+}
+
+
+
+export function useSendOrder() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (data: CartFormValues) => axiosInstance.post("/order/web/shop", data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["order-products"] });
+    },
+  });
 }
 
 // export function useContactUs() {

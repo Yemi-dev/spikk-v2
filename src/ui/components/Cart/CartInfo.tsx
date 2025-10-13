@@ -7,12 +7,17 @@ import CustomTextArea from "@/ui/atoms/inputs/CustomTextArea";
 import { useCart } from "@/hooks/cart.hook";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { useSendOrder } from "@/hooks/marketplace.hook";
+import { toast } from "react-toastify";
+import Link from "next/link";
+import usePageLoader from "@/hooks/usePageLoader";
 
-interface CartFormValues {
+export interface CartFormValues {
   note: string;
   drop_off_address: string;
   drop_off_coordinates: Array<number>;
   contact_no: string;
+  user_email: string;
   total_amount: number;
   type: "shop" | "send";
   scheduled: boolean;
@@ -26,6 +31,7 @@ interface CartFormValues {
 
 const validationSchema = Yup.object({
   contact_no: Yup.string().required("Phone number is required"),
+  user_email: Yup.string().email("Invalid email address").required("Email is required"),
   drop_off_address: Yup.string().required("Address is required"),
   drop_off_coordinates: Yup.array().of(Yup.number()).required("Coordinates are required"),
   total_amount: Yup.number().required("Total amount is required"),
@@ -43,6 +49,9 @@ const validationSchema = Yup.object({
 
 const CartInfo = () => {
   const { cartItems, removeFromCart, updateCartItemQuantity, resetCart } = useCart();
+  const { mutate: sendOrder, isPending } = useSendOrder();
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const { setLoading } = usePageLoader();
 
   // Cart calculations
   const subTotal = cartItems.reduce((sum, item) => sum + Number(item.price) * item.quantity, 0);
@@ -54,15 +63,21 @@ const CartInfo = () => {
     initialValues: {
       type: "shop",
       contact_no: "",
+      user_email: "",
       drop_off_address: "",
       drop_off_coordinates: [],
       scheduled: false,
       scheduled_time: "",
       order_items: cartItems.map((item) => ({
         product_id: item.id,
+        name: item.name,
+        price: item.price,
+        image: item.image,
         quantity: item.quantity,
+        isSpecial: false,
+        type: "marketplace",
       })),
-      payment_type: "pre-paid",
+      payment_type: "post-paid",
       note: "",
       total_amount: total,
     },
@@ -71,9 +86,24 @@ const CartInfo = () => {
     onSubmit: (values) => {
       // Handle form submission
       console.log(values);
+      setIsSubmitting(true);
+      sendOrder(values, {
+        onSuccess: (data) => {
+          resetCart();
+          toast.success(data.data.message);
+          localStorage.setItem("currentOrder", JSON.stringify(data.data.data));
+          setLoading(true);
+          setTimeout(() => {
+            window.location.href = "/cart/track-order";
+          }, 1500);
+        },
+        onError: (error: any) => {
+          toast.error(error.response.data.message);
+          setIsSubmitting(false);
+        },
+      });
     },
   });
-
 
   // Handlers
   const handleQuantity = (id: string, delta: number) => {
@@ -90,8 +120,12 @@ const CartInfo = () => {
 
   const handleResetCart = () => {
     // formik.resetForm();
+    localStorage.removeItem("currentOrder");
     resetCart();
   };
+
+  const currentOrder = localStorage.getItem("currentOrder");
+  const activeOrder = JSON.parse(currentOrder || "{}");
 
   // Handle coordinate fetching on address blur
   const handleAddressBlur = async (e: React.FocusEvent<HTMLDivElement>) => {
@@ -122,6 +156,13 @@ const CartInfo = () => {
     <section>
       <div className='w-full max-w-[1300px] mx-auto mb-8 mt-1'>
         <h1 className='text-2xl md:text-3xl font-bold text-black'>CART</h1>
+        <Link
+          href='/cart/track-order'
+          className={`text-sm text-spikkOrange font-semibold underline hover:text-blue-600 ${
+            activeOrder?.status?.level ? "block" : "hidden"
+          }`}>
+          Track current order
+        </Link>
       </div>
       <section className='flex sm:flex-col justify-between items-start gap-4'>
         <section className='flex flex-col gap-4 w-full flex-1'>
@@ -199,7 +240,10 @@ const CartInfo = () => {
             <div className='flex s:flex-col flex-row justify-between items-center mt-6 gap-4'>
               <CustomButton
                 className='text-blue100 bg-white hover:bg-yellow700 hover:border-yellow700 hover:text-black border-2 border-blue100 px-6 py-2 xs:text-sm rounded-lg font-semibold transition-all'
-                onClick={() => (window.location.href = "/home")}>
+                onClick={() => {
+                  setLoading(true);
+                  window.location.href = "/marketplace";
+                }}>
                 ← RETURN TO SHOP
               </CustomButton>
               <CustomButton
@@ -224,6 +268,17 @@ const CartInfo = () => {
             </div>
             {formik.values.type === "shop" && (
               <div className='pl-6 flex flex-col gap-4 mb-8'>
+                <CustomTextInput
+                  name='user_email'
+                  type='email'
+                  placeholder='janedoe@example.com'
+                  value={formik.values.user_email}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  className='w-full text-gray900 text-sm'
+                  label='Email'
+                  errorMessage={formik.touched.user_email && formik.errors.user_email}
+                />
                 <CustomTextInput
                   name='contact_no'
                   placeholder='Phone Number'
@@ -273,8 +328,8 @@ const CartInfo = () => {
             {formik.values.type === "send" && (
               <div className='pl-6 flex flex-col gap-4 mb-8'>
                 <CustomTextInput
-                  name='someoneAddress'
-                  placeholder='Address'
+                  name='drop_off_address'
+                  placeholder='Delivery Address'
                   value={formik.values.drop_off_address}
                   onChange={formik.handleChange}
                   onBlur={handleAddressBlur}
@@ -282,9 +337,19 @@ const CartInfo = () => {
                   label='Address'
                   errorMessage={formik.touched.drop_off_address && formik.errors.drop_off_address}
                 />
+                <CustomTextInput
+                  name='user_email'
+                  placeholder='janedoe@example.com'
+                  value={formik.values.user_email}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  className='w-full text-gray900 text-sm'
+                  label='Email'
+                  errorMessage={formik.touched.user_email && formik.errors.user_email}
+                />
                 <div className='flex gap-4'>
                   <CustomTextInput
-                    name='someonePhone'
+                    name='contact_no'
                     placeholder='Phone Number'
                     value={formik.values.contact_no}
                     onChange={formik.handleChange}
@@ -296,7 +361,7 @@ const CartInfo = () => {
                 </div>
                 <h3 className='text-lg font-bold my-4 text-gray900'>Additional Information</h3>
                 <CustomTextArea
-                  name='someoneNotes'
+                  name='note'
                   placeholder='Notes about your order, e.g. special notes for delivery'
                   value={formik.values.note}
                   onChange={formik.handleChange}
@@ -322,7 +387,7 @@ const CartInfo = () => {
               </div>
               <div className='flex justify-between'>
                 <span className='text-gray600'>Delivery fee</span>
-                <span className='font-semibold text-gray900'>Free</span>
+                <span className='font-semibold text-gray900'>Pay on delivery</span>
               </div>
               <div className='flex justify-between'>
                 <span className='text-gray600'>Discount</span>
@@ -336,9 +401,16 @@ const CartInfo = () => {
             <CustomButton
               className='text-textDark bg-yellow700 hover:text-white w-full font-bold text-base py-3 mt-2 rounded-lg hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed'
               type='submit'
-              disabled={!cartItems.length || formik.isSubmitting || Object.keys(formik.errors).length > 0}
+              isLoading={isPending || isSubmitting}
+              disabled={
+                !cartItems.length ||
+                formik.isSubmitting ||
+                Object.keys(formik.errors).length > 0 ||
+                isPending ||
+                isSubmitting
+              }
               onClick={formik.handleSubmit}>
-              SUBMIT REQUEST →
+              {isSubmitting ? "SUBMITTING..." : "SUBMIT REQUEST"} →
             </CustomButton>
           </div>
         </aside>
