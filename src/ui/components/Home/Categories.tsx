@@ -86,7 +86,7 @@ const Categories = () => {
         ) : (
           <div className='flex flex-wrap justify-center gap-2 w-full'>
             {categories.map(
-              (category: { image: string; name: string; banners: string[]; id: string }, index: number) => (
+              (category: { image: string; name: string; banners: string[]; id: string; web_image?: string }, index: number) => (
                 <button
                   key={index}
                   className='flex flex-col items-center justify-center bg-white border border-soft200 rounded-xl p-3 w-[165px] h-[200px] shadow-sm hover:bg-soft200 hover:shadow-md transition-all duration-300'
@@ -94,13 +94,13 @@ const Categories = () => {
                     router.push(`/marketplace/category?type=${category.name}&ref=${category.id}`);
                   }}>
                   <Image
-                    src={category.image}
+                    src={category?.web_image || category.image}
                     alt={category.name}
-                    width={110}
-                    height={140}
-                    className='mb-3 object-cover object-center'
+                    width={100}
+                    height={100}
+                    className='mb-3 object-contaiin object-center h-[140px] w-[110px] max-h-[140px] max-w-[110px]'
                   />
-                  <span className='text-sm font-medium text-black text-center'>{category.name}</span>
+                  <span className='text-sm font-medium text-black text-center line-clamp-2'>{category.name}</span>
                 </button>
               )
             )}

@@ -86,7 +86,7 @@ const CartInfo = () => {
     validationSchema,
     onSubmit: (values) => {
       // Handle form submission
-      console.log(values);
+      // console.log(values);
       setIsSubmitting(true);
       sendOrder(values, {
         onSuccess: (data) => {

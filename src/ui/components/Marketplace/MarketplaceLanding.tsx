@@ -77,74 +77,76 @@ const MarketplaceLanding = () => {
         <h1 className='text-2xl md:text-3xl font-bold text-black mt-16'>MARKETPLACE</h1>
       </div>
       {/* Hero Section */}
-      <section className='w-full max-w-[1300px] mx-auto bg-[#F3FAFF] rounded-2xl flex flex-col md:flex-row items-center justify-between gap-8 p-8 md:px-20 md:py-12 mb-12 relative'>
-        {productsLoading ? (
-          <div className='w-full h-[400px] flex items-center justify-center'>
-            <div className='w-8 h-8 border-4 border-yellow700 border-t-transparent rounded-full animate-spin'></div>
-          </div>
-        ) : (
-          allBannerProducts.length > 0 && (
-            <>
-              {allBannerProducts.map((product: SpecialProduct, index: number) => (
-                <div
-                  key={index}
-                  className={`w-full flex flex-col md:flex-row items-center justify-between gap-8 transition-opacity duration-500 ${
-                    activeSlide === index ? "opacity-100" : "opacity-0 hidden"
-                  }`}>
-                  {/* Left: Text */}
-                  <div className='flex-1 flex flex-col gap-4'>
-                    <div className='bg-blue200 text-white px-2 py-1 rounded-md w-fit text-xl font-bold'>
-                      {product.isSpecial ? "SPECIAL" : "HOT"} SALES
+      {allBannerProducts.length > 0 && (
+        <section className='w-full max-w-[1300px] mx-auto bg-[#F3FAFF] rounded-2xl flex flex-col md:flex-row items-center justify-between gap-8 p-8 md:px-20 md:py-12 mb-12 relative'>
+          {productsLoading ? (
+            <div className='w-full h-[400px] flex items-center justify-center'>
+              <div className='w-8 h-8 border-4 border-yellow700 border-t-transparent rounded-full animate-spin'></div>
+            </div>
+          ) : (
+            allBannerProducts.length > 0 && (
+              <>
+                {allBannerProducts.map((product: SpecialProduct, index: number) => (
+                  <div
+                    key={index}
+                    className={`w-full flex flex-col md:flex-row items-center justify-between gap-8 transition-opacity duration-500 ${
+                      activeSlide === index ? "opacity-100" : "opacity-0 hidden"
+                    }`}>
+                    {/* Left: Text */}
+                    <div className='flex-1 flex flex-col gap-4'>
+                      <div className='bg-blue200 text-white px-2 py-1 rounded-md w-fit text-xl font-bold'>
+                        {product.isSpecial ? "SPECIAL" : "HOT"} SALES
+                      </div>
+                      <h2 className='text-5xl sm:text-3xl text-black leading-tight font-bold'>{product.name}</h2>
+                      <p className='text-xl text-black max-w-md font-medium'>{product.description}</p>
+                      <div className='flex flex-col gap-1 mt-2'>
+                        {product.price && (
+                          <span className='text-sm text-gray-500'>
+                            Just for: <span className='font-bold text-lg text-black'>₦{product.price}</span>
+                          </span>
+                        )}
+                        <span className='text-sm text-error font-medium'>Ending soon</span>
+                      </div>
+                      <CustomButton
+                        bgColor={colors.yellow700}
+                        color={colors.black}
+                        className='w-fit mt-4 font-semibold flex items-center gap-2'
+                        borderRadius='8px'
+                        onClick={() => router.push(`/marketplace/product/${product.id}`)}>
+                        ORDER NOW <FaArrowRight />
+                      </CustomButton>
                     </div>
-                    <h2 className='text-5xl sm:text-3xl text-black leading-tight font-bold'>{product.name}</h2>
-                    <p className='text-xl text-black max-w-md font-medium'>{product.description}</p>
-                    <div className='flex flex-col gap-1 mt-2'>
-                      {product.price && (
-                        <span className='text-sm text-gray-500'>
-                          Just for: <span className='font-bold text-lg text-black'>₦{product.price}</span>
-                        </span>
-                      )}
-                      <span className='text-sm text-error font-medium'>Ending soon</span>
+                    {/* Right: Image */}
+                    <div className='flex-1 flex items-center justify-center'>
+                      <Image
+                        src={product.image.trim()}
+                        alt={"special"}
+                        width={350}
+                        height={220}
+                        className='rounded-2xl object-cover shadow-lg w-[350px] h-[220px]'
+                      />
                     </div>
-                    <CustomButton
-                      bgColor={colors.yellow700}
-                      color={colors.black}
-                      className='w-fit mt-4 font-semibold flex items-center gap-2'
-                      borderRadius='8px'
-                      onClick={() => router.push(`/marketplace/product/${product.id}`)}>
-                      ORDER NOW <FaArrowRight />
-                    </CustomButton>
                   </div>
-                  {/* Right: Image */}
-                  <div className='flex-1 flex items-center justify-center'>
-                    <Image
-                      src={product.image.trim()}
-                      alt={"special"}
-                      width={350}
-                      height={220}
-                      className='rounded-2xl object-cover shadow-lg w-[350px] h-[220px]'
-                    />
+                ))}
+                {/* Carousel Navigation */}
+                {allBannerProducts.length > 1 && (
+                  <div className='absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2'>
+                    {allBannerProducts.map((_: SpecialProduct, index: number) => (
+                      <button
+                        key={index}
+                        onClick={() => handleSlideChange(index)}
+                        className={`w-2 h-2 rounded-full transition-all ${
+                          activeSlide === index ? "bg-blue200 w-4" : "bg-gray300"
+                        }`}
+                      />
+                    ))}
                   </div>
-                </div>
-              ))}
-              {/* Carousel Navigation */}
-              {allBannerProducts.length > 1 && (
-                <div className='absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2'>
-                  {allBannerProducts.map((_: SpecialProduct, index: number) => (
-                    <button
-                      key={index}
-                      onClick={() => handleSlideChange(index)}
-                      className={`w-2 h-2 rounded-full transition-all ${
-                        activeSlide === index ? "bg-blue200 w-4" : "bg-gray300"
-                      }`}
-                    />
-                  ))}
-                </div>
-              )}
-            </>
-          )
-        )}
-      </section>
+                )}
+              </>
+            )
+          )}
+        </section>
+      )}
       {/* Categories Grid */}
       <section className='w-full max-w-[1300px] mx-auto mt-2'>
         <div className='w-full flex flex-col items-center mt-6'>
@@ -182,7 +184,10 @@ const MarketplaceLanding = () => {
         setPage={setProductsPage}
         setSelectedCategory={setSelectedCategory}
         category={selectedCategory}
-        categories={categories.map((category: { name: string; id: string }) => ({ label: category.name, value: category.id }))}
+        categories={categories.map((category: { name: string; id: string }) => ({
+          label: category.name,
+          value: category.id,
+        }))}
         totalPages={marketplaceProductsTotalPages}
         search={search}
         setSearch={setSearch}
