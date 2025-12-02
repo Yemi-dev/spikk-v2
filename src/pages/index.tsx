@@ -47,7 +47,7 @@ export default function Home() {
           <Hero />
           <Brand />
           <ExperienceSection />
-          <ProductDemoSection />
+          {/* <ProductDemoSection /> */}
           <HowItWorksSection />
           <PersonalizedAssistanceSection />
           <MarketplaceTransparencySection />
