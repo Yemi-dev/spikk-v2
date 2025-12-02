@@ -1,7 +1,6 @@
 import Brand from "@/ui/components/Landing/Brand";
 import Hero from "@/ui/components/Landing/Hero";
 import ExperienceSection from "@/ui/components/Landing/ExperienceSection";
-import ProductDemoSection from "@/ui/components/Landing/ProductDemoSection";
 import HowItWorksSection from "@/ui/components/Landing/HowItWorksSection";
 import PersonalizedAssistanceSection from "@/ui/components/Landing/PersonalizedAssistanceSection";
 import MarketplaceTransparencySection from "@/ui/components/Landing/MarketplaceTransparencySection";
