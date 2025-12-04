@@ -9,6 +9,7 @@ import QuickView from "./QuickView";
 import { formatPrice } from "@/utils";
 import ProductEmptyState from "../Shared/ProductEmptyState";
 import CategoriesSkeleton from "../Home/CategoriesLoader";
+import { useRouter } from "next/router";
 
 // Placeholder product and category data
 export type Product = {
@@ -46,6 +47,7 @@ const ProductGrid = ({
   limit?: number;
 }) => {
   const [viewProduct, setViewProduct] = useState<Product | null>(null);
+  const router = useRouter();
   // Handlers
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
@@ -133,6 +135,7 @@ const ProductGrid = ({
         <CustomButton
           bgColor='#FCC122'
           color='#232323'
+          onClick={() => router.push("/vendors#register")}
           className='font-bold px-8 py-3 text-base mt-2 hover:opacity-90 transition-all'>
           SEND A REQUEST
         </CustomButton>

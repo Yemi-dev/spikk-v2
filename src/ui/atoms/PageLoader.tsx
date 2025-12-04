@@ -14,7 +14,14 @@ const PageLoader: React.FC<PageLoaderProps> = ({ isLoading }) => {
       <div className='flex flex-col items-center gap-4'>
         {/* Spikk Loading Icon */}
         <div className='relative w-20 h-20 sm:w-16 sm:h-16'>
-          <Image src='/spikkPageLoadingIcon.gif' alt='Spikk Loading' fill className='object-contain' priority />
+          <Image
+            src='/spikkPageLoadingIcon.gif'
+            alt='Spikk Loading'
+            fill
+            sizes='(max-width: 640px) 64px, 80px'
+            className='object-contain'
+            priority
+          />
         </div>
       </div>
     </div>
