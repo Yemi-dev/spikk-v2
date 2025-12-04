@@ -98,7 +98,7 @@ const Categories = () => {
                     alt={category.name}
                     width={100}
                     height={100}
-                    className='mb-3 object-contaiin object-center h-[140px] w-[110px] max-h-[140px] max-w-[110px]'
+                    className='mb-3 object-contain object-center h-[120px] w-[100px] max-h-[140px] max-w-[110px]'
                   />
                   <span className='text-sm font-medium text-black text-center line-clamp-2'>{category.name}</span>
                 </button>

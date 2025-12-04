@@ -156,7 +156,10 @@ const MarketplaceLanding = () => {
             <div className='flex flex-wrap justify-center gap-2 w-full'>
               {/* Category Cards */}
               {categories.map(
-                (category: { image: string; name: string; banners: string[]; id: string }, index: number) => (
+                (
+                  category: { image: string; name: string; banners: string[]; id: string; web_image?: string },
+                  index: number
+                ) => (
                   <button
                     key={index}
                     className='flex flex-col items-center justify-center bg-white border border-soft200 rounded-xl px-3 py-3 w-[150px] h-[200px] shadow-sm hover:opacity-60 hover:shadow-md transition-all duration-300'
@@ -164,11 +167,11 @@ const MarketplaceLanding = () => {
                       router.push(`/marketplace/category?type=${category.name}&ref=${category.id}`);
                     }}>
                     <Image
-                      src={category.image}
+                      src={category?.web_image || category.image}
                       alt={category.name}
                       width={100}
-                      height={140}
-                      className='w-[120px] h-[140px] mb-3 object-cover object-center'
+                      height={100}
+                      className='mb-3 object-contain object-center h-[120px] w-[100px] max-h-[140px] max-w-[110px]'
                     />
                     <span className='text-sm font-medium text-black text-center'>{category.name}</span>
                   </button>

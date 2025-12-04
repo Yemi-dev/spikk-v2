@@ -102,7 +102,7 @@ const Hero = ({ isHome }: { isHome?: boolean }) => {
                 </p>
                 <div className='flex flex-col sm:flex-col-reverse lg:flex-row gap-4 items-center justify-center lg:justify-start mt-6 transition-opacity duration-700 ease-in-out'>
                   <CustomButton
-                    onClick={() => handleNavigate(!isHome ? "/home" : "/vendors#register")}
+                    onClick={() => handleNavigate(!isHome ? "/home" : "/marketplace")}
                     bgColor={colors.yellow700}
                     padding={isHome ? "10px 20px" : "10px 20px"}
                     className='font-semibold whitespace-nowrap text-black rounded-xl hover:text-white transition-all duration-200 ease-in-out'>
