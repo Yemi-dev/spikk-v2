@@ -60,7 +60,7 @@ const ProductDemoSection = () => {
         <div
           className='relative w-full h-full flex items-center justify-center overflow-visible'
           style={{ minHeight: 320 }}>
-          {videos.map((video, idx) => {
+          {videos?.map((video, idx) => {
             // Calculate stacking order
             const offset = (idx - current + total) % total;
             // Only render top 3 for performance
@@ -77,7 +77,7 @@ const ProductDemoSection = () => {
             return (
               <iframe
                 key={idx}
-                src={offset === 0 ? video.src : ""}
+                src={offset === 0 ? video?.src : ""}
                 className={
                   className + " rounded-2xl shadow-2xl w-full h-auto object-cover bg-black pointer-events-auto"
                 }

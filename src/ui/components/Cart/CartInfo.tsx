@@ -184,48 +184,48 @@ const CartInfo = () => {
                 </thead>
                 <tbody>
                   {cartItems.length > 0 ? (
-                    cartItems.map((item) => (
+                    cartItems?.map((item) => (
                       <tr key={item.id} className='border-b border-gray-100 last:border-0'>
                         <td className='py-4 flex items-center gap-3 min-w-[220px]'>
                           <button
                             className='text-gray300 hover:text-error mr-2 border border-gray200 hover:border-error rounded-full p-1'
-                            onClick={() => handleRemove(item.id)}
+                            onClick={() => handleRemove(item?.id)}
                             aria-label='Remove item'>
                             <MdClose className='hover:text-error' />
                           </button>
                           <Image
-                            src={item.image || "/images/png/demo-poster.png"}
-                            alt={item.name}
+                            src={item?.image || "/images/png/demo-poster.png"}
+                            alt={item?.name}
                             width={40}
                             height={80}
                             className='object-contain'
                           />
-                          <span className='text-sm text-black font-medium ml-2'>{item.name}</span>
+                          <span className='text-sm text-black font-medium ml-2'>{item?.name}</span>
                         </td>
                         <td className='py-4 text-sm font-medium text-gray700'>
-                          ₦{Number(item?.price).toLocaleString()}
+                          ₦{Number(item?.price || 0).toLocaleString()}
                         </td>
                         <td className='py-4'>
                           <div className='grid grid-cols-3 items-center rounded border border-gray200 w-fit'>
                             <button
                               className='w-8 h-8 text-lg  text-gray700 hover:bg-gray100'
-                              onClick={() => handleQuantity(item.id, -1)}
+                              onClick={() => handleQuantity(item?.id, -1)}
                               aria-label='Decrease quantity'>
                               –
                             </button>
                             <span className='text-center text-gray700 font-semibold'>
-                              {item.quantity.toString().padStart(2, "0")}
+                              {item?.quantity.toString().padStart(2, "0")}
                             </span>
                             <button
                               className='w-8 h-8  text-lg  text-gray700 hover:bg-gray100'
-                              onClick={() => handleQuantity(item.id, 1)}
+                              onClick={() => handleQuantity(item?.id, 1)}
                               aria-label='Increase quantity'>
                               +
                             </button>
                           </div>
                         </td>
                         <td className='py-4 text-sm font-semibold text-gray900'>
-                          ₦{(Number(item?.price) * item.quantity).toLocaleString()}
+                          ₦{(Number(item?.price) * item?.quantity).toLocaleString()}
                         </td>
                         <td></td>
                       </tr>

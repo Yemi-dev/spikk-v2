@@ -25,18 +25,18 @@ const QuickView = ({
 
   const handleAddToCart = () => {
     addToCart({
-      id: viewProduct.id,
-      name: viewProduct.name,
-      image: viewProduct.image,
-      price: Number(viewProduct.price),
-      category: viewProduct.category,
+      id: viewProduct?.id,
+      name: viewProduct?.name,
+      image: viewProduct?.image,
+      price: Number(viewProduct?.price),
+      category: viewProduct?.category,
       quantity,
     });
-    toast.success(`${quantity} ${viewProduct.name} added to cart`);
+    toast.success(`${quantity} ${viewProduct?.name} added to cart`);
     setViewProduct(null);
   };
 
-  const isAlreadyInCart = cartItems.some((item) => item.id === viewProduct.id);
+  const isAlreadyInCart = cartItems.some((item) => item.id === viewProduct?.id);
   const calculatedPrice = Number(viewProduct?.price) * quantity;
 
   return (
@@ -62,8 +62,8 @@ const QuickView = ({
               </div>
             )}
             <Image
-              src={viewProduct.image}
-              alt={viewProduct.name}
+              src={viewProduct?.image}
+              alt={viewProduct?.name}
               width={220}
               height={350}
               className='object-contain w-[180px] h-[320px] md:w-[220px] md:h-[350px]'
@@ -73,7 +73,7 @@ const QuickView = ({
         </div>
         {/* Right: Product Info */}
         <div className='flex-[2] flex flex-col gap-2 relative'>
-          <h2 className='text-2xl md:text-3xl font-bold text-soft300 mb-1 mt-2 md:mt-0'>{viewProduct.name}</h2>
+          <h2 className='text-2xl md:text-3xl font-bold text-soft300 mb-1 mt-2 md:mt-0'>{viewProduct?.name}</h2>
           <span className='text-blue100 text-lg font-semibold mb-4'>{formatPrice(calculatedPrice)}</span>
           <div className='mb-6'>
             <label className='block text-soft300 mb-2 font-medium'>How many quantity do you want?</label>
@@ -109,7 +109,7 @@ const QuickView = ({
           </div>
           <div className='mb-4'>
             <h3 className='font-bold text-soft300 text-lg mt-4'>Product Details</h3>
-            <p className='text-soft300 text-base'>{viewProduct.description}</p>
+            <p className='text-soft300 text-base'>{viewProduct?.description}</p>
           </div>
           {/* <div className='mb-4'>
             <h3 className='font-bold text-lg mb-2 text-soft300'>Features</h3>
