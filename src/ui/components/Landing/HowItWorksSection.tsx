@@ -52,7 +52,7 @@ const HowItWorksSection = () => {
       <div className='flex flex-col md:flex-row items-center justify-center w-full max-w-6xl gap-10 md:gap-0 mb-12'>
         {/* Left Steps */}
         <div className='flex flex-col gap-10 flex-1 max-w-xs md:items-end w-full'>
-          {steps.slice(0, 2).map((step, index) => {
+          {steps?.slice(0, 2).map((step, index) => {
             const isActive = index < activeStepCount;
             return (
               <div key={step.number} className='flex flex-col items-end text-right'>
@@ -108,7 +108,7 @@ const HowItWorksSection = () => {
         </div>
         {/* Right Steps */}
         <div className='flex flex-col gap-10 flex-1 max-w-xs md:items-start w-full'>
-          {steps.slice(2).map((step, idx) => {
+          {steps?.slice(2).map((step, idx) => {
             const index = idx + 2;
             const isActive = index < activeStepCount;
             return (

@@ -79,10 +79,10 @@ const Hero = ({ isHome }: { isHome?: boolean }) => {
               style={{ minHeight: 600 }}>
               <div className='w-full lg:w-1/2 text-center lg:text-left lg:pt-14 px-4 py-14'>
                 <h1 className='hero-title text-4xl lg:text-5xl xl:text-[84px] font-bold leading-tight lg:leading-[1] max-w-[600px] text-black mx-auto lg:mx-0 transition-opacity duration-700 ease-in-out'>
-                  {data.text1}
+                  {data?.text1}
                 </h1>
                 <h1 className='hero-title text-4xl lg:text-5xl xl:text-[84px] font-bold leading-tight lg:leading-[1] flex items-center justify-center lg:justify-start gap-2 max-w-[600px] mx-auto lg:mx-0 transition-opacity text-black duration-700 ease-in-out'>
-                  {data.text2}{" "}
+                  {data?.text2}{" "}
                   <span className='hero-title-bold'>
                     <Image
                       src='/images/svg/hero4.svg'
@@ -94,7 +94,7 @@ const Hero = ({ isHome }: { isHome?: boolean }) => {
                   </span>{" "}
                 </h1>
                 <h1 className='hero-title text-black text-4xl lg:text-5xl xl:text-[84px] font-bold leading-tight lg:leading-[1] max-w-[600px] mx-auto lg:mx-0 transition-opacity duration-700 ease-in-out'>
-                  {data.text3}
+                  {data?.text3}
                 </h1>
                 <p className='mt-4 max-w-[600px] text-textGray font-medium text-[18px] mx-auto lg:mx-0 transition-opacity duration-700 ease-in-out'>
                   Spikk simplifies your life by handling shopping, pickups, and deliveries with unmatched precision and
@@ -135,7 +135,7 @@ const Hero = ({ isHome }: { isHome?: boolean }) => {
               <div className='w-full lg:w-1/2 relative px-4'>
                 <div className='relative w-full max-w-[500px] mx-auto'>
                   <Image
-                    src={data.bgImage}
+                    src={data?.bgImage}
                     alt='HeroBackground'
                     width={500}
                     height={500}
@@ -150,7 +150,7 @@ const Hero = ({ isHome }: { isHome?: boolean }) => {
                   <div className='absolute top-6 left-4 lg:left-[30px] bg-white px-4 py-2 rounded-lg shadow-md w-[150px] transition-opacity duration-700 ease-in-out'>
                     <div className='flex flex-col gap-2 text-sm'>
                       <div className='flex items-center gap-2'>
-                        <span className='p-1 bg-black rounded-md text-white font-light'>{data.stat}</span>
+                        <span className='p-1 bg-black rounded-md text-white font-light'>{data?.stat}</span>
                         <span className='text-textGray'>deliveries completed</span>
                       </div>
                     </div>
@@ -162,20 +162,20 @@ const Hero = ({ isHome }: { isHome?: boolean }) => {
                       <div className='flex items-center gap-4'>
                         <div className='flex flex-col items-center'>
                           <Image
-                            src={data.avi}
+                            src={data?.avi}
                             alt='Rider Avatar'
                             width={50}
                             height={50}
                             className='rounded-full border border-gray200 transition-opacity duration-700 ease-in-out'
                           />
                           <div className='flex gap-1 border border-gray200 rounded-full py-[2px] px-3 mt-[-4px] bg-white text-[10px]'>
-                            <p>{data.stars}</p>
+                            <p>{data?.stars}</p>
                             <span className='text-black'>★</span>
                           </div>
                         </div>
                         <div>
-                          <p className='font-semibold'>{data.name}</p>
-                          <p className='text-sm text-textGray'>{data.occupation}</p>
+                          <p className='font-semibold'>{data?.name}</p>
+                          <p className='text-sm text-textGray'>{data?.occupation}</p>
                         </div>
                       </div>
                       <div>

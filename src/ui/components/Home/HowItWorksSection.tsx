@@ -55,7 +55,7 @@ const HowItWorksSection = () => {
       <div className='flex flex-col gap-[80px] w-full max-w-6xl'>
         {steps.map((step, idx) => (
           <div
-            key={step.number}
+            key={step?.number}
             className={`w-full ${
               idx % 2 !== 0 ? "md:flex-row-reverse" : "md:flex-row"
             } flex flex-col h-[400px] sm:h-[500px] overflow-y-hidden items-start justify-between rounded-2xl ${
@@ -64,11 +64,11 @@ const HowItWorksSection = () => {
             {/* Left: Text */}
             <div className='flex-1 flex flex-col items-start md:items-start gap-2 md:gap-4'>
               <div className='flex items-center gap-2 mb-2'>
-                <span className='text-[40px] font-extrabold text-black leading-none'>{step.number}</span>
+                <span className='text-[40px] font-extrabold text-black leading-none'>{step?.number}</span>
               </div>
               <div className='flex items-start gap-2 mb-2'>
                 <Image
-                  src={step.icon}
+                  src={step?.icon}
                   alt='icon'
                   width={40}
                   height={32}
@@ -80,8 +80,8 @@ const HowItWorksSection = () => {
                   className='inline-block'
                 />
                 <div>
-                  <h3 className='text-[32px] sm:text-[24px] font-semibold text-black'>{step.title}</h3>
-                  <p className='text-[18px] sm:text-[16px] text-black font-normal max-w-md'>{step.description}</p>
+                  <h3 className='text-[32px] sm:text-[24px] font-semibold text-black'>{step?.title}</h3>
+                  <p className='text-[18px] sm:text-[16px] text-black font-normal max-w-md'>{step?.description}</p>
                 </div>
               </div>
             </div>
@@ -89,8 +89,8 @@ const HowItWorksSection = () => {
             <div className='flex-1 flex justify-center md:justify-center w-full'>
               <div className='w-[393px] h-[430px]'>
                 <Image
-                  src={step.image}
-                  alt={step.title}
+                  src={step?.image}
+                  alt={step?.title}
                   width={393}
                   height={430}
                   className='rounded-xl shadow-lg w-[393px] h-[430px] object-cover sm:w-[300px] sm:h-[300px] mx-auto'

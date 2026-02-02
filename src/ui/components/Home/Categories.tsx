@@ -91,16 +91,16 @@ const Categories = () => {
                   key={index}
                   className='flex flex-col items-center justify-center bg-white border border-soft200 rounded-xl p-3 w-[165px] h-[200px] shadow-sm hover:bg-soft200 hover:shadow-md transition-all duration-300'
                   onClick={() => {
-                    router.push(`/marketplace/category?type=${category.name}&ref=${category.id}`);
+                    router.push(`/marketplace/category?type=${category?.name}&ref=${category?.id}`);
                   }}>
                   <Image
-                    src={category?.web_image || category.image}
-                    alt={category.name}
+                    src={category?.web_image || category?.image}
+                    alt={category?.name}
                     width={100}
                     height={100}
                     className='mb-3 object-contain object-center h-[120px] w-[100px] max-h-[140px] max-w-[110px]'
                   />
-                  <span className='text-sm font-medium text-black text-center line-clamp-2'>{category.name}</span>
+                  <span className='text-sm font-medium text-black text-center line-clamp-2'>{category?.name}</span>
                 </button>
               )
             )}

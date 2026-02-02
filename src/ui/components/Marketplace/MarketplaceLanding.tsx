@@ -119,7 +119,7 @@ const MarketplaceLanding = () => {
                     {/* Right: Image */}
                     <div className='flex-1 flex items-center justify-center'>
                       <Image
-                        src={product.image.trim()}
+                        src={product?.image?.trim() || ""}
                         alt={"special"}
                         width={350}
                         height={220}

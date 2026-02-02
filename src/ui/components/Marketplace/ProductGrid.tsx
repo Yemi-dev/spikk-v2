@@ -103,21 +103,21 @@ const ProductGrid = ({
           <div className='w-full grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4'>
             {products.map((product: Product) => (
               <button
-                key={product.id}
+                key={product?.id}
                 onClick={() => setViewProduct(product)}
                 className='flex flex-col items-start justify-end bg-white border border-soft200 rounded-xl p-4 shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer min-h-[220px] hover:opacity-60'>
                 <Image
-                  src={product?.image?.trimEnd() || ""}
-                  alt={product.name}
+                  src={product?.image?.trim() || ""}
+                  alt={product?.name}
                   width={150}
                   height={140}
                   className='mb-2 object-contain h-[100px] w-full'
                 />
                 <span className='text-xs md:text-sm text-gray900 text-left leading-tight mb-1 line-clamp-2'>
-                  {product.name}
+                  {product?.name}
                 </span>
                 <span className='text-blue100 text-sm font-semibold mt-1 text-left'>
-                  {formatPrice(Number(product?.price))}
+                  {formatPrice(Number(product?.price || 0))}
                 </span>
               </button>
             ))}

@@ -80,14 +80,14 @@ const WhySpikkSection = () => {
           </div>
           {/* Features */}
           <div className='flex-1 flex flex-col gap-4 w-full max-w-xl rounded-lg p-6 bg-white shadow-sm'>
-            {features.map((feature) => (
-              <div key={feature.title} className='flex items-start gap-3 pb-4'>
+            {features?.map((feature) => (
+              <div key={feature?.title} className='flex items-start gap-3 pb-4'>
                 <div className='flex-shrink-0 mt-1 text-yellow700 w-[22px] h-[22px]'>
-                  <Image src={feature.icon} alt='icon' width={22} height={22} className='w-full h-full' />
+                  <Image src={feature?.icon} alt='icon' width={22} height={22} className='w-full h-full' />
                 </div>
                 <div>
-                  <h3 className='font-bold text-[18px] text-black mb-1'>{feature.title}</h3>
-                  <p className='text-[15px] text-[#222] leading-snug'>{feature.description}</p>
+                  <h3 className='font-bold text-[18px] text-black mb-1'>{feature?.title}</h3>
+                  <p className='text-[15px] text-[#222] leading-snug'>{feature?.description}</p>
                 </div>
               </div>
             ))}
@@ -101,15 +101,15 @@ const WhySpikkSection = () => {
         </p>
         <div className='w-full overflow-x-auto'>
           <div className='flex gap-6 pb-4 min-w-min'>
-            {testimonials.map((testimonial, idx) => (
+            {testimonials?.map((testimonial, idx) => (
               <div
                 key={idx}
                 className='bg-soft100 rounded-3xl border-[10px] border-soft200 shadow p-6 flex flex-col gap-4 min-w-[260px] w-[400px] xs:w-[300px]'>
                 <span className='text-3xl text-blue-400 font-bold mb-2'>
                   <Image src='/images/svg/Approstrophe.svg' alt='Quote' width={24} height={24} />
                 </span>
-                <p className='text-[15px] text-[#222] leading-relaxed mb-2 italic'>{testimonial.text}</p>
-                <span className='font-bold text-black text-[14px] mt-auto text-center'>{testimonial.name}</span>
+                <p className='text-[15px] text-[#222] leading-relaxed mb-2 italic'>{testimonial?.text}</p>
+                <span className='font-bold text-black text-[14px] mt-auto text-center'>{testimonial?.name}</span>
               </div>
             ))}
           </div>
